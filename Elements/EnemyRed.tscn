@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/enemy_shot_red.png" type="Texture" id=1]
+[ext_resource path="res://Assets/enemy_turret_red.png" type="Texture" id=2]
+[ext_resource path="res://Elements/enemy_red.gd" type="Script" id=3]
+[ext_resource path="res://Assets/enemy_red.png" type="Texture" id=4]
+
+[node name="EnemyRed" type="Area2D"]
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="enemy_red" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+
+[node name="enemy_turret_red" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="enemy_shot_red" type="Sprite" parent="."]
+position = Vector2( 69, -4 )
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 1 )
