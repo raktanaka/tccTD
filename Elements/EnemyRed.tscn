@@ -1,14 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/enemy_shot_red.png" type="Texture" id=1]
 [ext_resource path="res://Assets/enemy_turret_red.png" type="Texture" id=2]
 [ext_resource path="res://Elements/enemy_red.gd" type="Script" id=3]
 [ext_resource path="res://Assets/enemy_red.png" type="Texture" id=4]
 
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 79, 35 )
+
 [node name="EnemyRed" type="Area2D"]
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
 
 [node name="enemy_red" type="Sprite" parent="."]
 texture = ExtResource( 4 )
