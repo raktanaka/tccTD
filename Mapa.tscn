@@ -137,5 +137,5 @@ scale = Vector2( 0.6, 0.6 )
 [node name="TowerRed" parent="Torres" instance=ExtResource( 4 )]
 position = Vector2( 314.98, 177.649 )
 
-[node name="Node2D" parent="." instance=ExtResource( 5 )]
+[node name="Path" parent="." instance=ExtResource( 5 )]
 position = Vector2( 0.410461, -0.531372 )
