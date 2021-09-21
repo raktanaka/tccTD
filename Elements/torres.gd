@@ -5,6 +5,8 @@ func olhe_para():
 	get_node(".").look_at(enemy_position)
 	pass
 
+func _on_ViewRadius_body_entered(body):
+	pass 
 
 func _physics_process(delta):
 	olhe_para()

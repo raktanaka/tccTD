@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/terrainTiles_default.png" type="Texture" id=1]
 [ext_resource path="res://Assets/towerDefense_tile183.png" type="Texture" id=2]
 [ext_resource path="res://Elements/TowerGreen.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Elements/TowerRed.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Elements/Enemy.tscn" type="PackedScene" id=5]
 
 [sub_resource type="TileSet" id=1]
 0/name = "terrainTiles_default.png 0"
@@ -130,7 +131,11 @@ tile_data = PoolIntArray( 7, 1, 0, 12, 0, 65538, 13, 0, 1, 14, 0, 65539, 65536, 
 [node name="Torres" type="Node" parent="."]
 
 [node name="TowerGreen" parent="Torres" instance=ExtResource( 3 )]
-position = Vector2( 359.077, 393.095 )
+position = Vector2( 216.078, 464.287 )
+scale = Vector2( 0.6, 0.6 )
 
 [node name="TowerRed" parent="Torres" instance=ExtResource( 4 )]
 position = Vector2( 314.98, 177.649 )
+
+[node name="Node2D" parent="." instance=ExtResource( 5 )]
+position = Vector2( 0.410461, -0.531372 )
