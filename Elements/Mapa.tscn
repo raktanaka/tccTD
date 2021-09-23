@@ -1,14 +1,14 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Assets/terrainTiles_default.png" type="Texture" id=1]
-[ext_resource path="res://Assets/towerDefense_tile183.png" type="Texture" id=2]
+[ext_resource path="res://Elements/TowerRed.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Elements/Enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Elements/TowerGreen.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Elements/TowerRed.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Elements/Enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/towerDefense_tile183.png" type="Texture" id=4]
+[ext_resource path="res://Assets/terrainTiles_default.png" type="Texture" id=5]
 
 [sub_resource type="TileSet" id=1]
 0/name = "terrainTiles_default.png 0"
-0/texture = ExtResource( 1 )
+0/texture = ExtResource( 5 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 64, 64, 64 )
@@ -31,7 +31,7 @@
 0/shapes = [  ]
 0/z_index = 0
 1/name = "terrainTiles_default.png 1"
-1/texture = ExtResource( 1 )
+1/texture = ExtResource( 5 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 0, 0, 64, 64 )
@@ -54,7 +54,7 @@
 1/shapes = [  ]
 1/z_index = 0
 2/name = "terrainTiles_default.png 2"
-2/texture = ExtResource( 1 )
+2/texture = ExtResource( 5 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 0, 0, 64, 128 )
@@ -79,7 +79,7 @@
 
 [sub_resource type="TileSet" id=2]
 0/name = "terrainTiles_default.png 0"
-0/texture = ExtResource( 1 )
+0/texture = ExtResource( 5 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 64, 0, 384, 128 )
@@ -102,7 +102,7 @@
 0/shapes = [  ]
 0/z_index = 0
 1/name = "towerDefense_tile183.png 1"
-1/texture = ExtResource( 2 )
+1/texture = ExtResource( 4 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 0, 0, 64, 64 )
@@ -131,11 +131,11 @@ tile_data = PoolIntArray( 7, 1, 0, 12, 0, 65538, 13, 0, 1, 14, 0, 65539, 65536, 
 [node name="Torres" type="Node" parent="."]
 
 [node name="TowerGreen" parent="Torres" instance=ExtResource( 3 )]
-position = Vector2( 216.078, 464.287 )
+position = Vector2( 268.834, 444.083 )
 scale = Vector2( 0.6, 0.6 )
 
-[node name="TowerRed" parent="Torres" instance=ExtResource( 4 )]
+[node name="TowerRed" parent="Torres" instance=ExtResource( 1 )]
 position = Vector2( 314.98, 177.649 )
 
-[node name="Path" parent="." instance=ExtResource( 5 )]
+[node name="Path" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0.410461, -0.531372 )
