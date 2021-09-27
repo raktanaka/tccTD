@@ -1,7 +1,88 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Elements/Mapa.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/towerDefense_tile065.png" type="Texture" id=2]
+[ext_resource path="res://Assets/tower_green.png" type="Texture" id=3]
+[ext_resource path="res://Assets/towerDefense_tile038.png" type="Texture" id=4]
+[ext_resource path="res://Assets/tower_red.png" type="Texture" id=5]
+[ext_resource path="res://Elements/MainScene.gd" type="Script" id=6]
+[ext_resource path="res://Elements/UI.gd" type="Script" id=7]
 
 [node name="MainScene" type="Node2D"]
+script = ExtResource( 6 )
 
 [node name="Mapa" parent="." instance=ExtResource( 1 )]
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource( 7 )
+
+[node name="Control" type="Control" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="build" type="VBoxContainer" parent="UI/Control"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -400.0
+margin_right = 100.0
+rect_min_size = Vector2( 100, 400 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="torrevermelha" type="TextureButton" parent="UI/Control/build" groups=[
+"build_botoes",
+]]
+margin_left = 10.0
+margin_right = 90.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="icone" type="TextureRect" parent="UI/Control/build/torrevermelha"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 5.0
+margin_right = -10.0
+margin_bottom = -10.0
+texture = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="torreverde" type="TextureButton" parent="UI/Control/build" groups=[
+"build_botoes",
+]]
+margin_left = 10.0
+margin_top = 84.0
+margin_right = 90.0
+margin_bottom = 164.0
+rect_min_size = Vector2( 80, 80 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="icone" type="TextureRect" parent="UI/Control/build/torreverde"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 5.0
+margin_right = -10.0
+margin_bottom = -10.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
