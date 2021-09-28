@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Elements/TowerRed.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Elements/Enemy.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Elements/TowerGreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Elements/Tower/TowerRed.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Elements/Enemy/Enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Elements/Tower/TowerGreen.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/towerDefense_tile183.png" type="Texture" id=4]
 [ext_resource path="res://Assets/terrainTiles_default.png" type="Texture" id=5]
 

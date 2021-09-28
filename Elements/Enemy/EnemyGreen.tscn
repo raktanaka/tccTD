@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Elements/enemy_green.gd" type="Script" id=1]
+[ext_resource path="res://Elements/Enemy/enemy_green.gd" type="Script" id=1]
 [ext_resource path="res://Assets/enemy_green.png" type="Texture" id=2]
 [ext_resource path="res://Assets/enemy_turret_green.png" type="Texture" id=3]
 [ext_resource path="res://Assets/enemy_shot_green.png" type="Texture" id=4]

@@ -55,10 +55,10 @@ func verify_and_build():
 	var new_tower
 	if build_valid:
 		if build_type == 'torrevermelha':
-			new_tower = load('res://Elements/TowerRed.tscn').instance()
+			new_tower = load('res://Elements/Tower/TowerRed.tscn').instance()
 	 
 		elif build_type == 'torreverde':
-			new_tower = load('res://Elements/TowerGreen.tscn').instance()
+			new_tower = load('res://Elements/Tower/TowerGreen.tscn').instance()
 		new_tower.position = build_location
 		map_node.get_node("Torres").add_child(new_tower,true)
 		

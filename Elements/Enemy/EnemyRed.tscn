@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Assets/enemy_shot_red.png" type="Texture" id=1]
 [ext_resource path="res://Assets/enemy_turret_red.png" type="Texture" id=2]
-[ext_resource path="res://Elements/enemy_red.gd" type="Script" id=3]
+[ext_resource path="res://Elements/Enemy/enemy_red.gd" type="Script" id=3]
 [ext_resource path="res://Assets/enemy_red.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]

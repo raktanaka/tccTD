@@ -1,4 +1,4 @@
-extends 'res://Elements/inimigos.gd'
+extends 'res://Elements/Enemy/inimigos.gd'
 
 # Declare member variables here. Examples:
 # var a = 2
