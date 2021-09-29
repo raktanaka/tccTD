@@ -53,5 +53,5 @@ func disparo(delta):
 
 
 func _on_ViewRadius_body_entered(body):
-	pass 
+	print('ok')
 	
