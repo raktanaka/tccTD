@@ -1,16 +1,18 @@
 extends CanvasLayer
 
-var tower_range = 350
+signal start
+
+#var tower_range = 350
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
 func set_tower_preview(build_type, mouse_position) :
 	var arrastar
-	if build_type == 'torrevermelha':
+	if build_type == 'TowerRed':
 		arrastar = load('res://Elements/Tower/TowerRed.tscn').instance()
 	 
-	elif build_type == 'torreverde':
+	elif build_type == 'TowerGreen':
 		arrastar = load('res://Elements/Tower/TowerGreen.tscn').instance()
 	
 	#create range
@@ -45,9 +47,14 @@ func update_tower_preview(new_position, coloor):
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	pass
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func _on_Button_pressed():
+	GameData.jogo_comecou = true
+	pass # Replace with function body.
