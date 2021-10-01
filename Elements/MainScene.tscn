@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Elements/Map/Mapa.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/towerDefense_tile065.png" type="Texture" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://Assets/tower_red.png" type="Texture" id=5]
 [ext_resource path="res://Elements/MainScene.gd" type="Script" id=6]
 [ext_resource path="res://Elements/UI.gd" type="Script" id=7]
+[ext_resource path="res://Assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 8 )
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource( 6 )
@@ -34,7 +38,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="torrevermelha" type="TextureButton" parent="UI/Control/build" groups=[
+[node name="TowerRed" type="TextureButton" parent="UI/Control/build" groups=[
 "build_botoes",
 ]]
 margin_left = 10.0
@@ -47,7 +51,7 @@ texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 4 )
 expand = true
 
-[node name="icone" type="TextureRect" parent="UI/Control/build/torrevermelha"]
+[node name="icone" type="TextureRect" parent="UI/Control/build/TowerRed"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
@@ -60,7 +64,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="torreverde" type="TextureButton" parent="UI/Control/build" groups=[
+[node name="TowerGreen" type="TextureButton" parent="UI/Control/build" groups=[
 "build_botoes",
 ]]
 margin_left = 10.0
@@ -74,7 +78,7 @@ texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 4 )
 expand = true
 
-[node name="icone" type="TextureRect" parent="UI/Control/build/torreverde"]
+[node name="icone" type="TextureRect" parent="UI/Control/build/TowerGreen"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
@@ -86,3 +90,18 @@ expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Button" type="Button" parent="UI/Control"]
+margin_left = 4.23785
+margin_top = 5.29732
+margin_right = 104.238
+margin_bottom = 55.2973
+custom_fonts/font = SubResource( 1 )
+text = "PLAY"
+clip_text = true
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="UI/Control/Button" to="UI" method="_on_Button_pressed"]
