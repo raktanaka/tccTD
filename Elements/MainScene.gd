@@ -71,6 +71,7 @@ func verify_and_build():
 		new_tower = load("res://Elements/Tower/" + build_type + ".tscn").instance()
 		new_tower.position = build_location
 		new_tower.built = true
+		new_tower.type = build_type
 		map_node.get_node("Torres").add_child(new_tower,true)
 		
 		map_node.get_node("towerexclusion").set_cellv(buid_title , 2) # colocando o title obstructed cujo id eh 2 no mapa
