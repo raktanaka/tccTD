@@ -29,4 +29,4 @@ script = SubResource( 2 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 position = Vector2( -17.2551, 544.352 )
-rotation = -0.00392213
+rotation = -0.00390657

@@ -25,4 +25,3 @@ func MovementLoop(delta):
 	path_follow.set_offset(path_follow.get_offset() + speed + delta)
 	var pos = path_follow.get_global_position()
 	move_direction = (pos.angle_to_point(pos_ini) / 3.14) * 100
-	

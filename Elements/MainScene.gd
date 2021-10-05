@@ -1,28 +1,29 @@
 extends Node2D
 
-#
-#https://gdscript.com/solutions/signals-godot/
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var map_node
+
 var build_mode = false # avisa se esta no modo construcao
 var build_valid = false
 var build_type
 var build_location
+var build_tile
+
+var current_wave = 0
+var enemies_in_wave
+
+##################################
+####Building  Functions
+#################################
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	map_node = get_node("Mapa")
 	
 	for i in get_tree().get_nodes_in_group('build_botoes'):
-		print('i: ', i)
-		var t = i.get_name()
-		print('t: ', t)
-		i.connect('pressed',self,'iniciar_botao', [t])
+		i.connect('pressed',self,'iniciar_botao', [i.get_name()])
 		#i.connect('pressed',self,'iniciar_botao', t)
-
+	
+	start_next_wave() #At the bottom of this script
 
 func iniciar_botao(tipo_de_torre):
 	build_type = tipo_de_torre
@@ -51,6 +52,7 @@ func cancel_build_mode():
 	build_valid = false
 	get_node("UI/tower_preview").queue_free()
 	pass
+
 func verify_and_build():
 	var new_tower
 	if build_valid:
@@ -79,3 +81,23 @@ func _process(_delta):
 		update_tower_preview()
 #	
 	pass
+
+## WAVE FUNCTIONS
+
+func start_next_wave():
+	var wave_data = retrieve_wave_data()
+	yield(get_tree().create_timer(0.2), "timeout") #padding between wave so they dont start instan
+	spawn_enemies(wave_data)
+	
+func retrieve_wave_data():
+	var wave_data = [["EnemyBasic", 0.7], ["EnemyBasic", 0.1]]
+	current_wave += 1
+	enemies_in_wave = wave_data.size()
+	
+	return wave_data
+	
+func spawn_enemies (wave_data):
+	for i in wave_data:
+		var new_enemy = load("res://Elements/Enemy/" + i[0] + ".tscn").instance()
+		map_node.get_node("Path").add_child(new_enemy, true)
+		yield(get_tree().create_timer(i[1]), "timeout")
