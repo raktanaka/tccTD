@@ -8,15 +8,14 @@ var enemy
 
 func _ready():
 	if built:
-		self.get_node("ViewRadius/CollisionShape2D").get_shape().radius = 0.5 * GameData.tower_data[self.get_name()]["range"]
-		pass
+		self.get_node("Range/CollisionShape2D").get_shape().radius = 0.5 * GameData.tower_data[self.get_name()]["range"]
 
 
 func _physics_process(delta):
 	if enemy_array.size() != 0 and built:
-		#select_enemy()
-		olhe_para()
-		#if ready:
+		select_enemy()
+		turn()
+
 			#fire()
 	else:
 		enemy = null
@@ -37,19 +36,15 @@ func select_enemy ():
 	#yield(get_tree().create_timer(GameData.tower_data[type]["rof"]), timeout)
 	#ready = true
 
-func olhe_para():
-	#var enemy_position = get_global_mouse_position()
+func turn():
 	get_node(".").look_at(enemy.position)
-	pass
 
 
 func _on_ViewRadius_body_entered(body):
-	print(get_name())
-	print('enter')
+	enemy_array.append(body.get_parent())
 	
 
 func _on_ViewRadius_body_exited(body):
-	print(get_name())
-	print('out')
+	enemy_array.erase(body.get_parent())
 	
 	
