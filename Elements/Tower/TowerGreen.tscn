@@ -4,7 +4,7 @@
 [ext_resource path="res://Assets/tower_green.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 0.01
+radius = 225.0
 
 [node name="TowerGreen" type="Node2D"]
 script = ExtResource( 1 )
@@ -15,10 +15,10 @@ rotation = 1.5708
 scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 2 )
 
-[node name="ViewRadius" type="Area2D" parent="."]
+[node name="Range" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewRadius"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
 shape = SubResource( 1 )
 
-[connection signal="body_entered" from="ViewRadius" to="." method="_on_ViewRadius_body_entered"]
-[connection signal="body_exited" from="ViewRadius" to="." method="_on_ViewRadius_body_exited"]
+[connection signal="body_entered" from="Range" to="." method="_on_ViewRadius_body_entered"]
+[connection signal="body_exited" from="Range" to="." method="_on_ViewRadius_body_exited"]

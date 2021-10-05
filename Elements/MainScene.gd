@@ -68,11 +68,7 @@ func cancel_build_mode():
 func verify_and_build():
 	var new_tower
 	if build_valid:
-		if build_type == 'TowerRed':
-			new_tower = load('res://Elements/Tower/TowerRed.tscn').instance()
-	 
-		elif build_type == 'TowerGreen':
-			new_tower = load('res://Elements/Tower/TowerGreen.tscn').instance()
+		new_tower = load("res://Elements/Tower/" + build_type + ".tscn").instance()
 		new_tower.position = build_location
 		new_tower.built = true
 		map_node.get_node("Torres").add_child(new_tower,true)
