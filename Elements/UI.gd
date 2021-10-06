@@ -54,7 +54,27 @@ func _ready():
 #func _process(delta):
 #	pass
 
-
+#setar botao como process para que ele nao pause a arvore toda
 func _on_Button_pressed():
-	GameData.jogo_comecou = true
+	#GameData.jogo_comecou = true
+	if get_parent().build_mode:
+		get_parent().cancel_build_mode()
+	elif get_tree().is_paused():
+		get_tree().paused = false
+	elif get_parent().onda_inimigos_atual == 0:
+		get_parent().onda_inimigos_atual += 1
+		get_parent().start_next_wave()
+	else :
+		get_tree().paused = true
+	pass # Replace with function body.
+
+# Engine é uma variavel global propria do godot
+func _on_speed_pressed():
+
+	if get_parent().build_mode:
+		get_parent().cancel_build_mode()
+	elif Engine.get_time_scale() == 2.0:
+		Engine.set_time_scale(1.0)
+	else:
+		Engine.set_time_scale(2.0)
 	pass # Replace with function body.
