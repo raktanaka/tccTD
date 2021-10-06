@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Elements/Map/Mapa.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/towerDefense_tile065.png" type="Texture" id=2]
@@ -7,10 +7,9 @@
 [ext_resource path="res://Assets/tower_red.png" type="Texture" id=5]
 [ext_resource path="res://Elements/MainScene.gd" type="Script" id=6]
 [ext_resource path="res://Elements/UI.gd" type="Script" id=7]
-[ext_resource path="res://Assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=8]
-
-[sub_resource type="DynamicFont" id=1]
-font_data = ExtResource( 8 )
+[ext_resource path="res://Assets/Pausebotthon.png" type="Texture" id=8]
+[ext_resource path="res://Assets/foward.png" type="Texture" id=9]
+[ext_resource path="res://Assets/play_botton.png" type="Texture" id=10]
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource( 6 )
@@ -91,17 +90,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="UI/Control"]
-margin_left = 4.23785
-margin_top = 5.29732
-margin_right = 104.238
-margin_bottom = 55.2973
-custom_fonts/font = SubResource( 1 )
-text = "PLAY"
-clip_text = true
-expand_icon = true
+[node name="playpause" type="TextureButton" parent="UI/Control"]
+pause_mode = 2
+margin_left = 853.0
+margin_top = 511.0
+margin_right = 951.0
+margin_bottom = 584.0
+toggle_mode = true
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 8 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="UI/Control/Button" to="UI" method="_on_Button_pressed"]
+[node name="speed" type="TextureButton" parent="UI/Control"]
+pause_mode = 2
+margin_left = 959.0
+margin_top = 511.0
+margin_right = 1057.0
+margin_bottom = 584.0
+toggle_mode = true
+texture_normal = ExtResource( 9 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="UI/Control/playpause" to="UI" method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/Control/speed" to="UI" method="_on_speed_pressed"]

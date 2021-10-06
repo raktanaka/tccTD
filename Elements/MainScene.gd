@@ -19,12 +19,10 @@ func _ready():
 	map_node = get_node("Mapa")
 	
 	for i in get_tree().get_nodes_in_group('build_botoes'):
-		#print('i: ', i)
 		var t = i.get_name()
-		#print('t: ', t)
 		i.connect('pressed',self,'iniciar_botao', [t])
 		#i.connect('pressed',self,'iniciar_botao', t)
-	start_next_wave()
+	#start_next_wave()
 
 #######################################################################
 #
