@@ -1,6 +1,8 @@
 extends CanvasLayer
 
-signal start
+onready var hp_bar       = get_node("Control/infobar/HBoxContainer/Barradevida")
+onready var hp_bar_tween = get_node("Control/infobar/HBoxContainer/Barradevida/Tween")
+ 
 
 #var tower_range = 350
 
@@ -78,3 +80,14 @@ func _on_speed_pressed():
 	else:
 		Engine.set_time_scale(2.0)
 	pass # Replace with function body.
+	
+func update_health_bar(base_health):
+	#hp_bar_tween.interpole_property(node, parameter, start_value, end_value,  duration, transistion_type, easing_type)
+	hp_bar_tween.interpolate_property(hp_bar,'value', hp_bar.value, base_health, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	hp_bar_tween.start()
+	if base_health >= 60                         : 
+		hp_bar.set_tint_progress("fb0f41")
+	elif base_health <= 60 and base_health >= 25 : 
+		hp_bar.set_tint_progress("e1be32")
+	else                                         : 
+		hp_bar.set_tint_progress("434c44")

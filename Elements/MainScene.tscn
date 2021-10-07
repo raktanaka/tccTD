@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Elements/Map/Mapa.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/towerDefense_tile065.png" type="Texture" id=2]
@@ -10,6 +10,23 @@
 [ext_resource path="res://Assets/Pausebotthon.png" type="Texture" id=8]
 [ext_resource path="res://Assets/foward.png" type="Texture" id=9]
 [ext_resource path="res://Assets/play_botton.png" type="Texture" id=10]
+[ext_resource path="res://Assets/UI/HPbar.jpg" type="Texture" id=11]
+[ext_resource path="res://Assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=12]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+use_filter = true
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 25
+use_filter = true
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 40
+use_filter = true
+font_data = ExtResource( 12 )
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource( 6 )
@@ -113,6 +130,94 @@ margin_bottom = 584.0
 toggle_mode = true
 texture_normal = ExtResource( 9 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="infobar" type="ColorRect" parent="UI/Control"]
+self_modulate = Color( 0.027451, 0.027451, 0.027451, 0.470588 )
+anchor_right = 1.0
+margin_bottom = 55.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/infobar"]
+margin_right = 1093.0
+margin_bottom = 55.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control2" type="Control" parent="UI/Control/infobar/HBoxContainer"]
+margin_right = 30.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="Money" type="Label" parent="UI/Control/infobar/HBoxContainer"]
+margin_left = 34.0
+margin_right = 102.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 1 )
+text = "$$:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Money_value" type="Label" parent="UI/Control/infobar/HBoxContainer"]
+margin_left = 106.0
+margin_right = 178.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 2
+custom_fonts/font = SubResource( 2 )
+text = "9999"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HP" type="Label" parent="UI/Control/infobar/HBoxContainer"]
+margin_left = 539.0
+margin_right = 615.0
+margin_bottom = 55.0
+size_flags_horizontal = 10
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 3 )
+text = "HP:"
+
+[node name="Barradevida" type="TextureProgress" parent="UI/Control/infobar/HBoxContainer"]
+margin_left = 619.0
+margin_top = 12.0
+margin_right = 1019.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 400, 30 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 100.0
+texture_under = ExtResource( 11 )
+texture_progress = ExtResource( 11 )
+tint_under = Color( 0.262745, 0.298039, 0.266667, 1 )
+tint_progress = Color( 0.984314, 0.0588235, 0.254902, 1 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="UI/Control/infobar/HBoxContainer/Barradevida"]
+
+[node name="Control" type="Control" parent="UI/Control/infobar/HBoxContainer"]
+margin_left = 1023.0
+margin_right = 1093.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 70, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

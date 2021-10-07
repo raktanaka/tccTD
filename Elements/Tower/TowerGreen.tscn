@@ -1,10 +1,28 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Elements/Tower/tower_green.gd" type="Script" id=1]
 [ext_resource path="res://Assets/tower_green.png" type="Texture" id=2]
+[ext_resource path="res://Assets/tower_shot_green.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 225.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "Fire"
+length = 0.05
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Position2D/enemy_shot_green:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [node name="TowerGreen" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,6 +37,20 @@ texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
 shape = SubResource( 1 )
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 60, -2 )
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
+
+[node name="enemy_shot_green" type="Sprite" parent="Position2D"]
+visible = false
+position = Vector2( 3.9768, -5.4353 )
+scale = Vector2( 1.36912, 1.46755 )
+texture = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Fire = SubResource( 2 )
 
 [connection signal="body_entered" from="Range" to="." method="_on_ViewRadius_body_entered"]
 [connection signal="body_exited" from="Range" to="." method="_on_ViewRadius_body_exited"]
