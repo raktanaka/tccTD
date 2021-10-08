@@ -1,5 +1,6 @@
 extends 'res://Elements/Enemy/inimigos.gd'
 
 func _ready():
-	.set_speed(50)
+	.set_speed(70)
+	.set_base_damage(45)
 	pass

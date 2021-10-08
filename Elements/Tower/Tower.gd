@@ -6,11 +6,12 @@ var built = false
 var enemy
 var ready = true
 
-
+# todo no deve ter um nome proprio e unico no godot como esta usando get_name()
+# na hora de construir uma torre do mesmo tipo em outro lugar da erro...
 func _ready():
 	if built:
-		self.get_node("Range/CollisionShape2D").get_shape().radius = 0.5 * GameData.tower_data[self.get_name()]["range"]
-
+		#self.get_node("Range/CollisionShape2D").get_shape().radius = 0.5 * GameData.tower_data[self.get_name()]["range"]
+		self.get_node("Range/CollisionShape2D").get_shape().radius = 0.5 * GameData.tower_data[type]["range"]
 
 func _physics_process(delta):
 	if enemy_array.size() != 0 and built:
@@ -33,6 +34,10 @@ func select_enemy ():
 
 func fire():
 	ready = false
+	# como ambos os tipos de torre vao usar a mesma animaçao de tiro
+	# aqui ficara um pouco diferente do tutorial
+	get_node("AnimationPlayer").play("Fire") # nome da animaçao
+	
 	enemy.on_hit(GameData.tower_data[type]["damage"])
 	yield(get_tree().create_timer(GameData.tower_data[type]["rof"]), "timeout")
 	ready = true

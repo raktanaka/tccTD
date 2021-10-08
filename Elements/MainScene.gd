@@ -3,6 +3,7 @@ extends Node2D
 #
 #https://gdscript.com/solutions/signals-godot/
 
+signal game_finished(result)
 
 var map_node
 var build_mode = false # avisa se esta no modo construcao
@@ -13,6 +14,7 @@ var buid_title
 
 var onda_inimigos_atual = 0
 var inimigos_ainda_vivos = 0
+var base_health  = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -118,11 +120,20 @@ func retrieve_wave_data():
 func spawn_enemies(onda):
 	for i in onda:
 		var new_inimigo = load('res://Elements/Enemy/' + i[0] + ".tscn").instance()
+		new_inimigo.connect("base_damage",self, 'on_base_damage')
 		map_node.get_node('Path').add_child(new_inimigo,true)
 		yield(get_tree().create_timer(i[1]), "timeout")#padding
 	
 	pass
 	
+	
+func on_base_damage(damage):
+	print("ENTROU NA FUNCAO ON BASE DAMAGE")
+	base_health = base_health - damage
+	if base_health <= 0:
+		emit_signal("game_finished",false)
+	else:
+		get_node("UI").update_health_bar(base_health)
 #######################################################################
 #
 #  Funções para inimigos
