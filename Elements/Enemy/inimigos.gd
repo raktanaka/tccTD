@@ -18,9 +18,6 @@ onready var path_follow = get_parent()
 onready var health_bar = get_node("HealthBar")
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 func set_speed(s):
 	speed = s
 	

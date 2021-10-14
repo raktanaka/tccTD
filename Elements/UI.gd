@@ -6,9 +6,6 @@ onready var hp_bar_tween = get_node("Control/infobar/HBoxContainer/Barradevida/T
 
 #var tower_range = 350
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 func set_tower_preview(build_type, mouse_position) :
 	var arrastar
 	if build_type == 'TowerRed':
