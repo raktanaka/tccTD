@@ -112,7 +112,7 @@ func start_next_wave(): # roda quando da play e  qd o player mata toda a onda
 	spawn_enemies(onda)
 
 func retrieve_wave_data():
-	var dados_inimigos = [['EnemyRed', 2] , ['EnemyGreen', 0.9]]
+	var dados_inimigos = [['EnemyRed', 2] , ['EnemyGreen', 0.9], ['EnemyGray',0.2] , ['Enemy_tanq',1] , ['EnemyBlue', 0.1] ]
 	onda_inimigos_atual += 1
 	inimigos_ainda_vivos = dados_inimigos.size()
 	return dados_inimigos
