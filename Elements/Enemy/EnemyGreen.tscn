@@ -9,7 +9,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 52, 36 )
 
-[node name="EnemyGreen" type="PathFollow2D"]
+[node name="EnemyGreen" type="PathFollow2D" groups=[
+"Enemy",
+]]
 position = Vector2( -21.8705, 545.449 )
 rotation = -0.0192435
 script = ExtResource( 1 )

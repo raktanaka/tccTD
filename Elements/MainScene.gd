@@ -8,6 +8,7 @@ signal game_finished(result)
 var map_node
 var build_mode = false # avisa se esta no modo construcao
 var build_valid = false
+var build_enemy = false
 var build_type
 var build_location
 var buid_title
@@ -23,9 +24,8 @@ func _ready():
 	for i in get_tree().get_nodes_in_group('build_botoes'):
 		var t = i.get_name()
 		i.connect('pressed',self,'iniciar_botao', [t])
-		#i.connect('pressed',self,'iniciar_botao', t)
 	#start_next_wave()
-
+	
 #######################################################################
 #
 #  Funções para construção de torres
@@ -86,7 +86,7 @@ func _unhandled_input(event):
 
 #######################################################################
 #
-#  Funções para construção de torres
+#  Função 'update'
 #
 ########################################################################
 
@@ -95,9 +95,13 @@ func _process(_delta):
 	
 	if build_mode:
 		update_tower_preview()
-	else:
-		#olhe_para()
-		print()
+	
+	## build next wave
+	if !build_enemy && get_tree().get_nodes_in_group("Enemy").size() == 0 && onda_inimigos_atual > 0:
+		build_enemy = true
+		var wave = AI.chromosome
+		start_next_wave_AI(wave)
+	
 	pass
 
 #######################################################################
@@ -107,37 +111,34 @@ func _process(_delta):
 ########################################################################
 
 func start_next_wave(): # roda quando da play e  qd o player mata toda a onda
-	var onda = retrieve_wave_data()
+	var wave = retrieve_wave_data()
 	yield(get_tree().create_timer(0.5), "timeout")#padding
-	spawn_enemies(onda)
+	spawn_enemies(wave)
+	
+func start_next_wave_AI(wave): # roda quando da play e  qd o player mata toda a onda
+	yield(get_tree().create_timer(0.5), "timeout")#padding
+	spawn_enemies(wave)
 
 func retrieve_wave_data():
-	var dados_inimigos = [['EnemyRed', 2] , ['EnemyGreen', 0.9], ['EnemyGray',0.2] , ['Enemy_tanq',1] , ['EnemyBlue', 0.1] ]
+	var dados_inimigos = [['EnemyRed', 1] , ['EnemyGreen', 0.9], ['EnemyGray',0.2] , ['Enemy_tanq',1] , ['EnemyBlue', 0.1] ]
 	onda_inimigos_atual += 1
 	inimigos_ainda_vivos = dados_inimigos.size()
 	return dados_inimigos
 	
-func spawn_enemies(onda):
-	for i in onda:
+func spawn_enemies(wave):
+	for i in wave:
 		var new_inimigo = load('res://Elements/Enemy/' + i[0] + ".tscn").instance()
 		new_inimigo.connect("base_damage",self, 'on_base_damage')
 		map_node.get_node('Path').add_child(new_inimigo,true)
 		yield(get_tree().create_timer(i[1]), "timeout")#padding
 	
-	pass
+	build_enemy = false
+
 	
 	
 func on_base_damage(damage):
-	print("ENTROU NA FUNCAO ON BASE DAMAGE")
 	base_health = base_health - damage
 	if base_health <= 0:
 		emit_signal("game_finished",false)
 	else:
 		get_node("UI").update_health_bar(base_health)
-#######################################################################
-#
-#  Funções para inimigos
-#
-########################################################################
-
-

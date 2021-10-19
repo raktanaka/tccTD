@@ -27,6 +27,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GameData="*res://Singletons/GameData.gd"
+AI="*res://Singletons/AI.gd"
 
 [display]
 
