@@ -8,7 +8,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 27.827, 20.7089 )
 
-[node name="EnemyBlue" type="PathFollow2D"]
+[node name="EnemyBlue" type="PathFollow2D" groups=[
+"Enemy",
+]]
 script = ExtResource( 3 )
 
 [node name="EnemyBlue" type="KinematicBody2D" parent="."]

@@ -50,8 +50,8 @@ func _ready():
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	pass
 
 #setar botao como process para que ele nao pause a arvore toda
 func _on_Button_pressed():
@@ -61,7 +61,6 @@ func _on_Button_pressed():
 	elif get_tree().is_paused():
 		get_tree().paused = false
 	elif get_parent().onda_inimigos_atual == 0:
-		get_parent().onda_inimigos_atual += 1
 		get_parent().start_next_wave()
 	else :
 		get_tree().paused = true
