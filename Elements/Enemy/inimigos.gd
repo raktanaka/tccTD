@@ -9,10 +9,14 @@ signal base_damage(d)
 var speed
 var base_damage
 
-
 var hp = 100.0
 var move_direction = 0
 
+#measure how much time the enemy survived
+var time_start
+var time_elapsed
+
+var reached_goal = false
 
 onready var path_follow = get_parent()
 onready var health_bar = get_node("HealthBar")
@@ -28,6 +32,7 @@ func set_base_damage(d):
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	time_start = OS.get_unix_time()
 	health_bar.max_value = hp
 	health_bar.value = hp
 	health_bar.set_as_toplevel(true)#disconecta a rotacao
@@ -40,11 +45,15 @@ func on_hit(damage):
 		
 
 func on_destroy():
+	if hp > 0:
+		reached_goal = true
 	self.queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	pass
+	## Check how much time the enemy will survive
+	var time_now = OS.get_unix_time()
+	time_elapsed = time_now - time_start
 
 func _physics_process(delta):
 	# unit_offset variavel que verifica o quanto do caminho foi percorrido

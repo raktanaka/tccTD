@@ -99,7 +99,7 @@ func _process(_delta):
 	## build next wave
 	if !build_enemy && get_tree().get_nodes_in_group("Enemy").size() == 0 && onda_inimigos_atual > 0:
 		build_enemy = true
-		var wave = AI.chromosome
+		var wave = AI.population
 		start_next_wave_AI(wave)
 	
 	pass
