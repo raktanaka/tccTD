@@ -4,7 +4,7 @@ extends Node
 
 ## chromosome [enemy_type, delay_time]
 
-var population = [['EnemyRed', 1] , ['EnemyGreen', 0.9], ['EnemyGray',0.2] , ['Enemy_tanq',1] , ['EnemyBlue', 0.1] ]
+var population = [['EnemyRed', 1], ['EnemyGreen', 0.9], ['EnemyGray', 0.2], ['Enemy_tanq', 1], ['EnemyBlue', 0.1]]
 
 ## receives the results that this generation achieved
 var population_res = []
@@ -15,6 +15,9 @@ var equation_inputs
 var num_weights = 2  # Number of the weights we are looking to optimize.
 
 var pop = []
+
+# Is right?
+var pop_size = [5,2]
 
 # IMPORTANT TO DEFINE THIS FUNCTION FOR EACH GAME
 func measure_fitness ():
@@ -82,16 +85,16 @@ func crossover (parents, offspring_size):
 	var offspring = []
 
 	# The point at which crossover takes place between two parents. Usually, it is at the center.
-	crossover_point = offspring_size[1] / 2
+	var crossover_point = offspring_size[1] / 2
  
 	for k in range(offspring_size[0]):
 		var child = []
 
 		# Index of the first parent to mate.
-		var parent1_idx = k % parents.length()
+		var parent1_idx = k % parents.size()
 
 		# Index of the second parent to mate.
-		var parent2_idx = (k + 1) % parents.length()
+		var parent2_idx = (k + 1) % parents.size()
 
 		# The new offspring will have its first half of its genes taken from the first parent.
 		for i in range (crossover_point):
@@ -108,14 +111,15 @@ func crossover (parents, offspring_size):
 
 func mutation(offspring_crossover):
 
+	var rng = RandomNumberGenerator.new()
 	# Mutation changes a single gene in each offspring randomly.
-	for idx in range(offspring_crossover.length()):
+	for idx in range(offspring_crossover.size()):
 
 		# The random value to be added to the gene.
 
-		random_value = randi_range (-1, 1)
+		var random_value = rng.randi_range (-1, 1)
 
-		offspring_crossover[idx, 2] += random_value
+		offspring_crossover[idx][2] += random_value
 
 	return offspring_crossover
 
@@ -140,12 +144,12 @@ func start_experiment (num_generations):
 		var offspring_mutation = mutation (offspring_crossover)
 		
 		# Creating the new population based on the parents and offspring.
-		var new_population = []
+		new_population = []
 
-		for i in range (parents.length ())
+		for i in range (parents.size ()):
 			new_population.append (parents[i])
 
-		for i in range (offspring_mutation.length ())
+		for i in range (offspring_mutation.size ()):
 			new_population.append (offspring_mutation[i])
 
 

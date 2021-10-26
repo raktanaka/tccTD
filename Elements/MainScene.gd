@@ -99,8 +99,9 @@ func _process(_delta):
 	## build next wave
 	if !build_enemy && get_tree().get_nodes_in_group("Enemy").size() == 0 && onda_inimigos_atual > 0:
 		build_enemy = true
-		var wave = AI.population
-		start_next_wave_AI(wave)
+		var wave = AI.start_experiment()
+		print(wave)
+		start_next_wave_AI(AI.population)
 	
 	pass
 
@@ -110,12 +111,13 @@ func _process(_delta):
 #
 ########################################################################
 
-func start_next_wave(): # roda quando da play e  qd o player mata toda a onda
+# "Começa" a AI, gera nova wave
+func start_next_wave(): # roda quando da play e qd o player mata toda a onda
 	var wave = retrieve_wave_data()
 	yield(get_tree().create_timer(0.5), "timeout")#padding
 	spawn_enemies(wave)
 	
-func start_next_wave_AI(wave): # roda quando da play e  qd o player mata toda a onda
+func start_next_wave_AI(wave): # roda quando da play e qd o player mata toda a onda
 	yield(get_tree().create_timer(0.5), "timeout")#padding
 	spawn_enemies(wave)
 
