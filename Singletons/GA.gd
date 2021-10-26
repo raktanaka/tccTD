@@ -4,20 +4,20 @@ extends Node
 
 ## chromosome [enemy_type, delay_time]
 
-var population = [['EnemyRed', 1], ['EnemyGreen', 0.9], ['EnemyGray', 0.2], ['Enemy_tanq', 1], ['EnemyBlue', 0.1], ['EnemyGray', 0.2]]
+var population = [['EnemyRed', 1], ['EnemyGreen', 0.9], ['EnemyGray', 0.2], ['Enemy_tanq', 1], ['EnemyBlue', 0.1]]
 
 ## receives the results that this generation achieved
 var population_res = []
 
 # inputs of the equation
-var equation_inputs = 6
+var equation_inputs
 
 var num_weights = 2  # Number of the weights we are looking to optimize.
 
 var pop = []
 
 # Is right?
-var pop_size = [6,2]
+var pop_size = [5,2]
 
 # IMPORTANT TO DEFINE THIS FUNCTION FOR EACH GAME
 func measure_fitness ():
@@ -26,9 +26,7 @@ func measure_fitness ():
 #    In this game, we measure the fitness with the time that the enemys survived 
 # or if they reached the destination
 func measure_fitness_TD (equation_inputs, pop):
-	var rng = RandomNumberGenerator.new()
-	
-	return rng.randi()
+	pass
 
 ### ?
 func clone(node: Node) -> void :
@@ -104,7 +102,7 @@ func crossover (parents, offspring_size):
 
 		# The new offspring will have its second half of its genes taken from the second parent.
 		for i in range (crossover_point):
-			child.append (parents [parent2_idx][i + crossover_point])
+			child.append (parents [parent2_idx][i + 1 + crossover_point])
 			##maybe  remove + 1
 
 		offspring.append (child)
@@ -121,37 +119,39 @@ func mutation(offspring_crossover):
 
 		var random_value = rng.randi_range (-1, 1)
 
-		offspring_crossover[idx][1] += random_value
+		offspring_crossover[idx][2] += random_value
 
 	return offspring_crossover
 
-func start_experiment ():
+func start_experiment (num_generations):
 	var num_parents_mating = 4
 	
-	# Measuring the fitness of each chromosome in the population.
-	var fitness = cal_pop_fitness(equation_inputs, population)
+	var new_population
 	
-	# Selecting the best parents in the population for mating.
-	var parents = select_mating_pool(population, fitness, num_parents_mating)
-	
-	# Generating next generation using crossover.
-	var offspring_size = [pop_size[0] - parents.size(), num_weights]
-	
-	var offspring_crossover = crossover (parents, offspring_size)
+	for generation in range(num_generations):
+		# Measuring the fitness of each chromosome in the population.
+		var fitness = cal_pop_fitness(equation_inputs, new_population)
+		
+		# Selecting the best parents in the population for mating.
+		var parents = select_mating_pool(new_population, fitness, num_parents_mating)
+		
+		# Generating next generation using crossover.
+		var offspring_size = [pop_size[0] - parents.shape[0], num_weights]
+		
+		var offspring_crossover = crossover (parents, offspring_size)
+ 
+		# Adding some variations to the offspring using mutation.
+		var offspring_mutation = mutation (offspring_crossover)
+		
+		# Creating the new population based on the parents and offspring.
+		new_population = []
 
-	# Adding some variations to the offspring using mutation.
-	var offspring_mutation = mutation (offspring_crossover)
-	
-	# Creating the new population based on the parents and offspring.
-	var new_population = []
+		for i in range (parents.size ()):
+			new_population.append (parents[i])
 
-	for i in range (parents.size ()):
-		new_population.append (parents[i])
+		for i in range (offspring_mutation.size ()):
+			new_population.append (offspring_mutation[i])
 
-	for i in range (offspring_mutation.size ()):
-		new_population.append (offspring_mutation[i])
-
-	return new_population
 
 ## class inimigo:
 ## var speed
