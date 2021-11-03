@@ -53,6 +53,10 @@ func _ready():
 func _process(delta):
 	pass
 
+
+
+
+
 #setar botao como process para que ele nao pause a arvore toda
 func _on_Button_pressed():
 	#GameData.jogo_comecou = true
@@ -85,5 +89,15 @@ func update_health_bar(base_health):
 		hp_bar.set_tint_progress("fb0f41")
 	elif base_health <= 60 and base_health >= 25 : 
 		hp_bar.set_tint_progress("e1be32")
+	
+	elif base_health < 25 and  base_health >= 2 :
+		hp_bar.set_tint_progress("f64d0c")
+	
 	else                                         : 
 		hp_bar.set_tint_progress("434c44")
+
+
+func _on_VOLTAR_MENU_pressed():
+	print('voltar')
+	get_tree().change_scene("res://Elements/GerenciarCena.tscn")
+	pass # Replace with function body.

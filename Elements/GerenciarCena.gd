@@ -8,6 +8,7 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#print('entrando em ready...')
 	load_main_menu()
 	pass # Replace with function body.
 	
@@ -18,11 +19,15 @@ func load_main_menu():
 func new_game_pressed():
 	print('new game')
 	get_node("Menu").queue_free()
+	
+	#print('tirando menu da arvore..')
+	
 	var scene = load('res://Elements/MainScene.tscn').instance() 
 	scene.connect("game_finished",self, 'unload_game')
 	add_child(scene)
 	
 func unload_game(result):
+	#print('entrou em unload_game..')
 	get_node("MainScene").queue_free()
 	var main_menu = load('res://Elements/Menu.tscn').instance()
 	add_child(main_menu)

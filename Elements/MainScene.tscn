@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Elements/Map/Mapa.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/towerDefense_tile065.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Assets/UI/HPbar.jpg" type="Texture" id=11]
 [ext_resource path="res://Assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://Elements/playpause.gd" type="Script" id=13]
+[ext_resource path="res://Assets/UI/exitRight.png" type="Texture" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 size = 40
@@ -186,6 +187,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="VOLTAR_MENU" type="TextureButton" parent="UI/Control/infobar/HBoxContainer"]
+margin_left = 182.0
+margin_right = 252.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 70, 0 )
+texture_normal = ExtResource( 14 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="HP" type="Label" parent="UI/Control/infobar/HBoxContainer"]
 margin_left = 539.0
 margin_right = 615.0
@@ -226,3 +238,4 @@ __meta__ = {
 
 [connection signal="pressed" from="UI/Control/playpause" to="UI" method="_on_Button_pressed"]
 [connection signal="pressed" from="UI/Control/speed" to="UI" method="_on_speed_pressed"]
+[connection signal="pressed" from="UI/Control/infobar/HBoxContainer/VOLTAR_MENU" to="UI" method="_on_VOLTAR_MENU_pressed"]

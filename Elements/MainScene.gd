@@ -101,7 +101,7 @@ func _process(_delta):
 		build_enemy = true
 		var wave = AI.start_experiment()
 		print(wave)
-		start_next_wave_AI(AI.population)
+		#start_next_wave_AI(AI.population)   #### DESCOBRI PQ SE DESCOMENTAR NEW GAME E QUIT PARAM DE FUNCIONAR
 	
 	pass
 
@@ -140,6 +140,7 @@ func spawn_enemies(wave):
 	
 func on_base_damage(damage):
 	base_health = base_health - damage
+	#print('damage...', 'hp: ', base_health)
 	if base_health <= 0:
 		emit_signal("game_finished",false)
 	else:
