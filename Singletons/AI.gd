@@ -8,7 +8,7 @@ var population = [['EnemyRed', 1], ['EnemyGreen', 0.9], ['EnemyGray', 0.2], ['En
 
 ## receives the results that this generation achieved
 ## in this example, receives a vector [REACHED_GOAL_BIN, TIME_ALIVE]
-var population_res = []
+var population_res = [[false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0]]
 
 # organize results of population
 var id = -1
@@ -25,10 +25,9 @@ func _ready():
 	population_res.resize (pop_size[0])
 	
 func id ():
+	id += 1
 	if id >= pop_size[0]:
 		id = -1
-		
-	id += 1
 	return id
 
 # IMPORTANT TO DEFINE THIS FUNCTION FOR EACH GAME
@@ -38,7 +37,7 @@ func measure_fitness ():
 #    In this game, we measure the fitness with the time that the enemys survived 
 # or if they reached the destination
 func measure_fitness_TD (chromossome):
-	if typeof(chromossome) != TYPE_ARRAY:
+	if typeof (chromossome) != TYPE_ARRAY:
 		return 0
 		
 	var fit = 0
@@ -125,11 +124,15 @@ func mutation(offspring_crossover):
 func start_experiment ():
 	var num_parents_mating = 4
 	
+	print (population_res)
+	
 	# Measuring the fitness of each chromosome in the population.
 	var fitness = cal_pop_fitness(population_res)
 	
 	# Selecting the best parents in the population for mating.
 	var parents = select_mating_pool(population, fitness, num_parents_mating)
+	
+	print (parents)
 	
 	# Generating next generation using crossover.
 	var offspring_size = [pop_size[0] - parents.size(), num_weights]
@@ -147,6 +150,8 @@ func start_experiment ():
 
 	for i in range (offspring_mutation.size ()):
 		new_population.append (offspring_mutation[i])
+		
+	population = new_population
 
 	return new_population
 

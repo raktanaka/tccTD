@@ -56,8 +56,7 @@ func on_destroy():
 	var data = []
 	data.append(reached_goal)
 	data.append(time_elapsed - time_start)
-	print ("HAHAHA:" + str(id))
-	#AI.population_res[id] = data
+	AI.population_res[id] = data
 	self.queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -75,7 +74,7 @@ func _physics_process(delta):
 		emit_signal("base_damage", base_damage)
 		on_destroy()
 	elif unit_offset >= 0.99:
-		return
+		pass
 	else:
 		move(delta,speed)
 		health_bar.set_position(position - Vector2(30,30))
