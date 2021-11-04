@@ -22,7 +22,7 @@ var pop_size = [6,2]
 # IMPORTANT TO DEFINE THIS FUNCTION FOR EACH GAME
 func measure_fitness ():
 	pass
-	
+
 #    In this game, we measure the fitness with the time that the enemys survived 
 # or if they reached the destination
 func measure_fitness_TD (equation_inputs, pop):

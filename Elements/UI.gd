@@ -79,7 +79,15 @@ func _on_speed_pressed():
 		Engine.set_time_scale(1.0)
 	else:
 		Engine.set_time_scale(2.0)
-	pass # Replace with function body.
+	
+func _on_speed4_pressed():
+	if get_parent().build_mode:
+		get_parent().cancel_build_mode()
+	elif Engine.get_time_scale() == 4.0:
+		Engine.set_time_scale(1.0)
+	else:
+		Engine.set_time_scale(4.0)
+	
 	
 func update_health_bar(base_health):
 	#hp_bar_tween.interpole_property(node, parameter, start_value, end_value,  duration, transistion_type, easing_type)
@@ -101,3 +109,5 @@ func _on_VOLTAR_MENU_pressed():
 	print('voltar')
 	get_tree().change_scene("res://Elements/GerenciarCena.tscn")
 	pass # Replace with function body.
+
+
