@@ -12,7 +12,6 @@ extents = Vector2( 52.2084, 35 )
 "Enemy",
 ]]
 position = Vector2( -21.8705, 545.449 )
-rotation = -0.0192435
 script = ExtResource( 3 )
 
 [node name="EnemyRed" type="KinematicBody2D" parent="."]
