@@ -37,9 +37,6 @@ func measure_fitness ():
 #    In this game, we measure the fitness with the time that the enemys survived 
 # or if they reached the destination
 func measure_fitness_TD (chromossome):
-	if typeof (chromossome) != TYPE_ARRAY:
-		return 0
-		
 	var fit = 0
 	
 	if chromossome[0] == true:
@@ -57,10 +54,10 @@ func measure_fitness_TD (chromossome):
 func cal_pop_fitness(pop):
 	var fitness = []
 	
-	for i in pop.size ():
+	for i in pop:
 		fitness.append(measure_fitness_TD(i))
 		
-	print(fitness)
+	print (fitness)
 	return fitness
 
 # Selecting the best individuals in the current generation as parents for produ-

@@ -50,12 +50,12 @@ func on_hit(damage):
 		destroying = true
 		on_destroy()
 
-func on_destroy():		
+func on_destroy():
 	if hp > 0:
 		reached_goal = true
 	var data = []
 	data.append(reached_goal)
-	data.append(time_elapsed - time_start)
+	data.append(time_elapsed)
 	AI.population_res[id] = data
 	self.queue_free()
 
@@ -80,6 +80,4 @@ func _physics_process(delta):
 		health_bar.set_position(position - Vector2(30,30))
 
 func move(delta,speed):
-	#if get_node('res://Elements/Enemy/EnemyRed.tscn'):
-	#	print('VERMELHo')
 	set_offset(get_offset() + speed * delta)
