@@ -6,7 +6,7 @@
 [ext_resource path="res://Assets/UI/HPbar.jpg" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 59.1258, 35 )
+extents = Vector2( 52.2084, 35 )
 
 [node name="EnemyRed" type="PathFollow2D" groups=[
 "Enemy",
@@ -16,15 +16,17 @@ rotation = -0.0192435
 script = ExtResource( 3 )
 
 [node name="EnemyRed" type="KinematicBody2D" parent="."]
-scale = Vector2( 0.5, 0.5 )
+scale = Vector2( 0.4, 0.4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyRed"]
 shape = SubResource( 1 )
 
 [node name="enemy_red" type="Sprite" parent="EnemyRed"]
+position = Vector2( -0.728813, -0.757324 )
 texture = ExtResource( 4 )
 
 [node name="enemy_turret_red" type="Sprite" parent="EnemyRed"]
+position = Vector2( 0.743103, 0.0142822 )
 texture = ExtResource( 2 )
 
 [node name="HealthBar" type="TextureProgress" parent="."]

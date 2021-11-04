@@ -6,7 +6,7 @@
 [ext_resource path="res://Assets/tank_dark.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 26.0452, 22.9361 )
+extents = Vector2( 28.0736, 24.0192 )
 
 [node name="EnemyGray" type="PathFollow2D" groups=[
 "Enemy",
