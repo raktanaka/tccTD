@@ -7,17 +7,29 @@ extends Node
 var population = [['EnemyRed', 1], ['EnemyGreen', 0.9], ['EnemyGray', 0.2], ['Enemy_tanq', 1], ['EnemyBlue', 0.1], ['EnemyGray', 0.2]]
 
 ## receives the results that this generation achieved
+## in this example, receives a vector [REACHED_GOAL_BIN, TIME_ALIVE]
 var population_res = []
 
+# organize results of population
+var id = -1
+
 # inputs of the equation
-var equation_inputs = 6
+var n = 6
 
 var num_weights = 2  # Number of the weights we are looking to optimize.
 
-var pop = []
-
 # Is right?
 var pop_size = [6,2]
+
+func _ready():
+	population_res.resize (pop_size[0])
+	
+func id ():
+	if id >= pop_size[0]:
+		id = -1
+		
+	id += 1
+	return id
 
 # IMPORTANT TO DEFINE THIS FUNCTION FOR EACH GAME
 func measure_fitness ():
@@ -25,46 +37,31 @@ func measure_fitness ():
 	
 #    In this game, we measure the fitness with the time that the enemys survived 
 # or if they reached the destination
-func measure_fitness_TD (equation_inputs, pop):
-	var rng = RandomNumberGenerator.new()
+func measure_fitness_TD (chromossome):
+	if typeof(chromossome) != TYPE_ARRAY:
+		return 0
+		
+	var fit = 0
 	
-	return rng.randi()
+	if chromossome[0] == true:
+		fit = 100
+	else:
+		fit = -100
+		
+	fit += chromossome[1]
+	return fit
 
-### ?
-func clone(node: Node) -> void :
-	var copy = node.duplicate()
-	# see https://docs.godotengine.org/en/3.1/classes/class_object.html#id2
-	var properties: Array = node.get_property_list()
-
-	var script_properties: Array = []
-
-	for prop in properties:
-		# see https://docs.godotengine.org/en/3.1/classes/class_@globalscope.html#enum-globalscope-propertyusageflags
-			# basically here we are getting any of the user-defined script variables that exist, since those apparently don't
-			# get copied via `duplicate()`
-		if prop.usage & PROPERTY_USAGE_SCRIPT_VARIABLE == PROPERTY_USAGE_SCRIPT_VARIABLE:
-			script_properties.append(prop)
-
-	for prop in script_properties:
-		copy.set(prop.name, node[prop.name])
-
-	pop.append(copy)
-
-	
-func show_pop_situation():
-	print('shoud analise the results...')
-	print(pop.size())
-	for i in pop :
-		print( 'inimigo : ',i.name, 'hp: ', i.hp )
 
 # Calculating the fitness value of each solution in the current population.
 # The fitness function calculates the sum of products between each input 
 # and its corresponding weight.
-func cal_pop_fitness(equation_inputs, pop):
+func cal_pop_fitness(pop):
 	var fitness = []
 	
 	for i in pop.size ():
-		fitness.append(measure_fitness_TD(equation_inputs, pop))
+		fitness.append(measure_fitness_TD(i))
+		
+	print(fitness)
 	return fitness
 
 # Selecting the best individuals in the current generation as parents for produ-
@@ -129,7 +126,7 @@ func start_experiment ():
 	var num_parents_mating = 4
 	
 	# Measuring the fitness of each chromosome in the population.
-	var fitness = cal_pop_fitness(equation_inputs, population)
+	var fitness = cal_pop_fitness(population_res)
 	
 	# Selecting the best parents in the population for mating.
 	var parents = select_mating_pool(population, fitness, num_parents_mating)

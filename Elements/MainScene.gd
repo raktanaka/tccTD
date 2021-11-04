@@ -101,7 +101,7 @@ func _process(_delta):
 		build_enemy = true
 		var wave = AI.start_experiment()
 		print(wave)
-		#start_next_wave_AI(AI.population)   #### DESCOBRI PQ SE DESCOMENTAR NEW GAME E QUIT PARAM DE FUNCIONAR
+		start_next_wave_AI(AI.population)   #### DESCOBRI PQ SE DESCOMENTAR NEW GAME E QUIT PARAM DE FUNCIONAR
 	
 	pass
 
