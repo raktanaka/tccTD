@@ -55,7 +55,7 @@ func on_destroy():
 		reached_goal = true
 	var data = []
 	data.append(reached_goal)
-	data.append(time_elapsed)
+	data.append(unit_offset)
 	AI.population_res[id] = data
 	self.queue_free()
 

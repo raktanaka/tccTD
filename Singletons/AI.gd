@@ -4,6 +4,10 @@ extends Node
 
 ## chromosome [enemy_type, delay_time]
 
+var Enemy_Type = ['EnemyRed', 'EnemyGreen', 'EnemyGray', 'EnemyBlue', 'Enemy_tanq']
+
+var Max_time = 5
+
 var population = [['EnemyRed', 1], ['EnemyGreen', 0.9], ['EnemyGray', 0.2], ['Enemy_tanq', 1], ['EnemyBlue', 0.1], ['EnemyGray', 0.2]]
 
 ## receives the results that this generation achieved
@@ -44,7 +48,7 @@ func measure_fitness_TD (chromossome):
 	else:
 		fit = -100
 		
-	fit += chromossome[1]
+	fit += chromossome[1] * 100
 	return fit
 
 
@@ -57,7 +61,6 @@ func cal_pop_fitness(pop):
 	for i in pop:
 		fitness.append(measure_fitness_TD(i))
 		
-	print (fitness)
 	return fitness
 
 # Selecting the best individuals in the current generation as parents for produ-
@@ -76,6 +79,7 @@ func select_mating_pool(pop, fitness, num_parents):
 
 	return parents
 
+## Cross over process, will take half of the genes of each parent.
 func crossover (parents, offspring_size):
 	var offspring = []
 
@@ -104,17 +108,54 @@ func crossover (parents, offspring_size):
 
 	return offspring
 
+func mutation_int (idx):
+	pass
+	
+func mutation_float (idx):
+	var gene
+	if idx == 2:
+		gene = Max_time
+		
+	var rng = RandomNumberGenerator.new ()
+	
+	return rng.randf_range (-gene, gene)
+	
+func mutation_string (idx):
+	var gene
+	if (idx == 1):
+		gene = Enemy_Type
+		
+	var rng = RandomNumberGenerator.new()
+	
+	var random_index = rng.rangi_range (1, gene.size())
+	
+	print (gene[random_index])
+	
+	return gene [random_index]
+
+# In certain situations in nature mutations can occur and will give more
+#diversity to the population 
 func mutation(offspring_crossover):
 
-	var rng = RandomNumberGenerator.new()
+	var rng = RandomNumberGenerator.new ()
+	
+	print (offspring_crossover[0].size())
+		
 	# Mutation changes a single gene in each offspring randomly.
-	for idx in range(offspring_crossover.size()):
+	for idx in range(offspring_crossover.size ()):
 
 		# The random value to be added to the gene.
 
-		var random_value = rng.randi_range (-1, 1)
+		var random_index = rng.randi_range (0, offspring_crossover[idx].size() - 1)
+		
+		if offspring_crossover[idx] is String:
+			offspring_crossover[idx] = mutation_string (idx)
 
-		offspring_crossover[idx][1] += random_value
+		elif offspring_crossover[idx] is int:		
+			offspring_crossover[idx] += mutation_int (idx)
+		
+		elif offspring_crossover[idx] is float:
+			offspring_crossover[idx] += mutation_float (idx)
 
 	return offspring_crossover
 
