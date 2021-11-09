@@ -101,7 +101,7 @@ func _process(_delta):
 		build_enemy = true
 		var wave = AI.start_experiment()
 		print(wave)
-		#start_next_wave_AI(AI.population)   #### DESCOBRI PQ SE DESCOMENTAR NEW GAME E QUIT PARAM DE FUNCIONAR
+		start_next_wave_AI(wave)   #### DESCOBRI PQ SE DESCOMENTAR NEW GAME E QUIT PARAM DE FUNCIONAR
 	
 	pass
 
@@ -122,8 +122,7 @@ func start_next_wave_AI(wave): # roda quando da play e qd o player mata toda a o
 	spawn_enemies(wave)
 
 func retrieve_wave_data():
-	var dados_inimigos = [['EnemyRed', 1] , ['EnemyGreen', 0.9], ['EnemyGray',0.2] , ['Enemy_tanq',1] , ['EnemyBlue', 0.1] ]
-	onda_inimigos_atual += 1
+	var dados_inimigos = [['EnemyRed', 1], ['EnemyGreen', 0.9], ['EnemyGray', 0.2], ['Enemy_tanq', 1], ['EnemyBlue', 0.1], ['EnemyGray', 0.2]]
 	inimigos_ainda_vivos = dados_inimigos.size()
 	return dados_inimigos
 	
@@ -133,6 +132,8 @@ func spawn_enemies(wave):
 		new_inimigo.connect("base_damage",self, 'on_base_damage')
 		map_node.get_node('Path').add_child(new_inimigo,true)
 		yield(get_tree().create_timer(i[1]), "timeout")#padding
+	
+	onda_inimigos_atual += 1
 	
 	build_enemy = false
 

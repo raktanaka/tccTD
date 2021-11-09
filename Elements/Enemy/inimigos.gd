@@ -6,6 +6,11 @@ class_name INIMIGO
 
 signal base_damage(d)
 
+# id of the enemy to organize data produced
+var id 
+
+var destroying = false
+
 var speed
 var base_damage
 
@@ -36,17 +41,22 @@ func _ready():
 	health_bar.max_value = hp
 	health_bar.value = hp
 	health_bar.set_as_toplevel(true)#disconecta a rotacao
+	id = AI.id()
 
 func on_hit(damage):
 	hp -= damage
 	health_bar.value = hp
-	if hp <= 0:
+	if hp <= 0 && !destroying:
+		destroying = true
 		on_destroy()
-		
 
 func on_destroy():
 	if hp > 0:
 		reached_goal = true
+	var data = []
+	data.append(reached_goal)
+	data.append(unit_offset)
+	AI.population_res[id] = data
 	self.queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -59,15 +69,15 @@ func _physics_process(delta):
 	# unit_offset variavel que verifica o quanto do caminho foi percorrido
 	# unit_offset é zero quando o inimigo nao andou nada e 1 quando completou o caminho
 	
-	#print( 'u: ', unit_offset, 's: ', speed , base_damage)
-	if unit_offset > 0.9 : 
-		#print("ENTROU AQUI EM UNITOFFSET")
+	if unit_offset >= 0.99 && !destroying: 
+		destroying = true
 		emit_signal("base_damage", base_damage)
-		queue_free()
-	move(delta,speed)
-	health_bar.set_position(position - Vector2(30,30))
+		on_destroy()
+	elif unit_offset >= 0.99:
+		pass
+	else:
+		move(delta,speed)
+		health_bar.set_position(position - Vector2(30,30))
 
 func move(delta,speed):
-	#if get_node('res://Elements/Enemy/EnemyRed.tscn'):
-	#	print('VERMELHo')
 	set_offset(get_offset() + speed * delta)
