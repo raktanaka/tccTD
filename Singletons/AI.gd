@@ -46,6 +46,8 @@ func measure_fitness ():
 
 #    In this game, we measure the fitness with the time that the enemys survived 
 # or if they reached the destination
+# Wil: Dar "nota" para a performance do tanque, talvez ponderar
+# Média: 5 * % caminho percorrido e 5 * % HP restante
 func measure_fitness_TD (chromossome):
 	var fit = 0
 	
@@ -56,7 +58,15 @@ func measure_fitness_TD (chromossome):
 		
 	fit += chromossome[1] * 100
 	return fit
+	
+#    In this game, we measure the fitness with the HP that the enemys hit 
+# the player
+# Wil: Dar "nota" para a performance do asteróide, talvez ponderar
+# Média: Se acertou, usar a vida no momento do impacto
+# Talvez a distância asteróide-player
 
+func measure_fitness_Asteroids (chromossome):
+	pass
 
 # Calculating the fitness value of each solution in the current population.
 # The fitness function calculates the sum of products between each input 
