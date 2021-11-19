@@ -38,7 +38,7 @@ func fire():
 	# aqui ficara um pouco diferente do tutorial
 	get_node("AnimationPlayer").play("Fire") # nome da animaçao
 	
-	enemy.on_hit(GameData.tower_data[type]["damage"])
+	enemy.on_hit(GameData.tower_data[type]["damage"], GameData.tower_data[type]["type"])
 	yield(get_tree().create_timer(GameData.tower_data[type]["rof"]), "timeout")
 	ready = true
 
