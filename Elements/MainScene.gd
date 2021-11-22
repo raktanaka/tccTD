@@ -16,6 +16,7 @@ var buid_title
 var onda_inimigos_atual = 0
 var inimigos_ainda_vivos = 0
 var base_health  = 200 # Doubled life, so the algorithm has more time to evolve
+var total_damage = 0 # Damage logging for statistical purposes
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -102,8 +103,7 @@ func _process(_delta):
 		var wave = AI.start_experiment()
 		print(wave)
 		start_next_wave_AI(wave)   #### DESCOBRI PQ SE DESCOMENTAR NEW GAME E QUIT PARAM DE FUNCIONAR
-	
-	pass
+
 
 #######################################################################
 #
@@ -137,12 +137,34 @@ func spawn_enemies(wave):
 	
 	build_enemy = false
 
-	
-	
 func on_base_damage(damage):
+	total_damage += damage
 	base_health = base_health - damage
 	#print('damage...', 'hp: ', base_health)
 	if base_health <= 0:
+		write_data(total_damage)
 		emit_signal("game_finished",false)
 	else:
 		get_node("UI").update_health_bar(base_health)
+
+# File writing at
+#   Windows: %APPDATA%\Godot\
+#   macOS: ~/Library/Application Support/Godot/
+#   Linux: ~/.local/share/godot/
+
+func write_data(data):
+	var path = 'user://td_data.csv'
+	var file = File.new()
+	
+	# All this to be able to append to file
+	if file.file_exists(path):
+		print('file exists')
+		file.open("user://td_data.csv", File.READ_WRITE)
+		file.seek_end()
+		file.store_string('; ')
+	else:
+		print('file new')
+		file.open("user://td_data.csv", File.WRITE)
+		
+	file.store_string(str(data))
+	file.close()
