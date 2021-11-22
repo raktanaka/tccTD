@@ -158,13 +158,11 @@ func write_data(data):
 	
 	# All this to be able to append to file
 	if file.file_exists(path):
-		print('file exists')
-		file.open("user://td_data.csv", File.READ_WRITE)
+		file.open(path, File.READ_WRITE)
 		file.seek_end()
 		file.store_string('; ')
 	else:
-		print('file new')
-		file.open("user://td_data.csv", File.WRITE)
+		file.open(path, File.WRITE)
 		
 	file.store_string(str(data))
 	file.close()
