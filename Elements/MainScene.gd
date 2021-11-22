@@ -15,7 +15,7 @@ var buid_title
 
 var onda_inimigos_atual = 0
 var inimigos_ainda_vivos = 0
-var base_health  = 200 # Doubled life, so the algorithm has more time to evolve
+var base_health  = 100 # Doubled life, so the algorithm has more time to evolve
 var total_damage = 0 # Damage logging for statistical purposes
 
 # Called when the node enters the scene tree for the first time.
