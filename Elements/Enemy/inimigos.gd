@@ -13,6 +13,7 @@ var destroying = false
 
 var speed
 var base_damage
+var type
 
 var hp = 100.0
 var move_direction = 0
@@ -34,18 +35,26 @@ func set_speed(s):
 func set_base_damage(d):
 	base_damage = d
 	
-	
+func set_type(t):
+	type = t
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	time_start = OS.get_unix_time()
 	health_bar.max_value = hp
 	health_bar.value = hp
-	health_bar.set_as_toplevel(true)#disconecta a rotacao
+	health_bar.set_as_toplevel(true) #disconnect the rotation
 	id = AI.id()
 
-func on_hit(damage):
-	hp -= damage
-	health_bar.value = hp
+func on_hit(damage, t):
+	if self.type == t:
+		hp -= damage / 2
+		health_bar.value = hp
+		
+	else:
+		hp -= damage
+		health_bar.value = hp
+	
 	if hp <= 0 && !destroying:
 		destroying = true
 		on_destroy()

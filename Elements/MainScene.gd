@@ -11,7 +11,7 @@ var build_valid = false
 var build_enemy = false
 var build_type
 var build_location
-var buid_title
+var build_tile
 
 var onda_inimigos_atual = 0
 var inimigos_ainda_vivos = 0
@@ -52,19 +52,19 @@ func iniciar_botao(tipo_de_torre):
 func update_tower_preview():
 	var mouse_position = get_global_mouse_position()
 	#determinam a posicao exata para carregar a texture da  torre
-	var title_atual    = map_node.get_node('towerexclusion').world_to_map(mouse_position) # coordenadas
-	var title_position = map_node.get_node('towerexclusion').map_to_world(title_atual)
+	var tile_atual    = map_node.get_node('towerexclusion').world_to_map(mouse_position) # coordenadas
+	var tile_position = map_node.get_node('towerexclusion').map_to_world(tile_atual)
 	
 	# 
-	if map_node.get_node('towerexclusion').get_cellv(title_atual) == -1: # o nó é um lugar que vc nao pode construir
-		get_node("UI").update_tower_preview(title_position, "d8b0b0")
+	if map_node.get_node('towerexclusion').get_cellv(tile_atual) == -1: # o nó é um lugar que vc nao pode construir
+		get_node("UI").update_tower_preview(tile_position, "d8b0b0")
 		build_valid = true
-		build_location= title_position
-		buid_title =  title_atual
+		build_location= tile_position
+		build_tile =  tile_atual
 	
 	else:
-		get_node('UI').update_tower_preview(title_position, "ff002a")
-		build_valid =false
+		get_node('UI').update_tower_preview(tile_position, "ff002a")
+		build_valid = false
 	
 func cancel_build_mode():
 	build_mode = false
@@ -83,7 +83,12 @@ func verify_and_build():
 		new_tower.built = true
 		new_tower.type = build_type
 		map_node.get_node("Torres").add_child(new_tower,true)
+<<<<<<< HEAD
+		
+		map_node.get_node("towerexclusion").set_cellv(build_tile , 2) # colocando o tile obstructed cujo id eh 2 no mapa
+=======
 		#map_node.get_node("towerexclusion").set_cellv(buid_title , 2) # colocando o title obstructed cujo id eh 2 no mapa
+>>>>>>> d85dc91670cbf49b82ce05b1fbf66fa66be5ca8b
 
 
 func _unhandled_input(event):
