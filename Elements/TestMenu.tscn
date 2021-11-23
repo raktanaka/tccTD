@@ -28,10 +28,10 @@ __meta__ = {
 }
 
 [node name="towers" type="VBoxContainer" parent="."]
-margin_left = 30.0
-margin_top = 40.0
-margin_right = 411.0
-margin_bottom = 440.0
+margin_left = 28.9405
+margin_top = 37.8811
+margin_right = 409.941
+margin_bottom = 437.881
 custom_constants/separation = 10
 alignment = 1
 __meta__ = {
@@ -39,18 +39,44 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="towers"]
-margin_top = 73.0
+margin_top = 43.0
 margin_right = 381.0
-margin_bottom = 87.0
+margin_bottom = 57.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "SELECT TOWERS"
 align = 1
 
+[node name="PlayersChoice" type="TextureButton" parent="towers"]
+margin_left = 40.0
+margin_top = 67.0
+margin_right = 340.0
+margin_bottom = 117.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+toggle_mode = true
+group = SubResource( 2 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="label" type="Label" parent="towers/PlayersChoice"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 4 )
+text = "PLAYER'S CHOICE"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="AllGreen" type="TextureButton" parent="towers"]
 margin_left = 40.0
-margin_top = 97.0
+margin_top = 127.0
 margin_right = 340.0
-margin_bottom = 147.0
+margin_bottom = 177.0
 rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
@@ -74,9 +100,9 @@ __meta__ = {
 
 [node name="AllRed" type="TextureButton" parent="towers"]
 margin_left = 40.0
-margin_top = 157.0
+margin_top = 187.0
 margin_right = 340.0
-margin_bottom = 207.0
+margin_bottom = 237.0
 rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
@@ -100,9 +126,9 @@ __meta__ = {
 
 [node name="GreenRed" type="TextureButton" parent="towers"]
 margin_left = 40.0
-margin_top = 217.0
+margin_top = 247.0
 margin_right = 340.0
-margin_bottom = 267.0
+margin_bottom = 297.0
 rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
@@ -130,9 +156,9 @@ __meta__ = {
 
 [node name="RedGreen" type="TextureButton" parent="towers"]
 margin_left = 40.0
-margin_top = 277.0
+margin_top = 307.0
 margin_right = 340.0
-margin_bottom = 327.0
+margin_bottom = 357.0
 rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5

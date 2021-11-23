@@ -18,6 +18,10 @@ var inimigos_ainda_vivos = 0
 var base_health  = 100 # Doubled life, so the algorithm has more time to evolve
 var total_damage = 0 # Damage logging for statistical purposes
 
+# Automatic Test Mode variables
+var test_towers
+var test_enemies
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	map_node = get_node("Mapa")
@@ -27,6 +31,11 @@ func _ready():
 		i.connect('pressed',self,'iniciar_botao', [t])
 	#start_next_wave()
 	
+# Test mode parameters
+func init_params(towers, enemies):
+	test_towers = towers
+	test_enemies = enemies
+
 #######################################################################
 #
 #  Funções para construção de torres
@@ -39,7 +48,6 @@ func iniciar_botao(tipo_de_torre):
 	build_type = tipo_de_torre
 	build_mode = true
 	get_node("UI").set_tower_preview(build_type, get_global_position())
-	pass
 
 func update_tower_preview():
 	var mouse_position = get_global_mouse_position()
@@ -69,13 +77,13 @@ func cancel_build_mode():
 func verify_and_build():
 	var new_tower
 	if build_valid:
+#		print(build_type)
 		new_tower = load("res://Elements/Tower/" + build_type + ".tscn").instance()
 		new_tower.position = build_location
 		new_tower.built = true
 		new_tower.type = build_type
 		map_node.get_node("Torres").add_child(new_tower,true)
-		
-		map_node.get_node("towerexclusion").set_cellv(buid_title , 2) # colocando o title obstructed cujo id eh 2 no mapa
+		#map_node.get_node("towerexclusion").set_cellv(buid_title , 2) # colocando o title obstructed cujo id eh 2 no mapa
 
 
 func _unhandled_input(event):
@@ -84,6 +92,28 @@ func _unhandled_input(event):
 	elif event.is_action_released("ui_accept") and build_mode == true:
 		verify_and_build()
 		cancel_build_mode()
+
+
+func test_mode_build_towers():
+	# Tested at locations (256, 448) and (640, 384)
+	var tower_locations = PoolVector2Array()
+	tower_locations = [Vector2(256, 448), Vector2(640, 384)]
+	var tower_types = []
+	print(test_towers)
+	match test_towers:
+		'AllGreen':
+			tower_types = ['TowerGreen', 'TowerGreen']
+		'AllRed':
+			tower_types = ['TowerRed', 'TowerRed']
+		'GreenRed':
+			tower_types = ['TowerGreen', 'TowerRed']
+		'RedGreen':
+			tower_types = ['TowerRed', 'TowerGreen']
+	build_valid = true
+	for i in range(tower_locations.size()):
+		build_location = tower_locations[i]
+		build_type = tower_types[i]
+		verify_and_build()
 
 #######################################################################
 #
@@ -153,7 +183,7 @@ func on_base_damage(damage):
 #   Linux: ~/.local/share/godot/
 
 func write_data(data):
-	var path = 'user://td_data.csv'
+	var path = 'user://' + test_towers + ' - ' + test_enemies + '.csv'
 	var file = File.new()
 	
 	# All this to be able to append to file
