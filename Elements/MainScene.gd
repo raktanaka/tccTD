@@ -71,8 +71,6 @@ func cancel_build_mode():
 	build_valid = false
 	#get_node("UI/tower_preview").queue_free()
 	get_node("UI/tower_preview").free() # delete imediatamente
-	pass
-	
 	
 func verify_and_build():
 	var new_tower
@@ -83,13 +81,7 @@ func verify_and_build():
 		new_tower.built = true
 		new_tower.type = build_type
 		map_node.get_node("Torres").add_child(new_tower,true)
-<<<<<<< HEAD
-		
-		map_node.get_node("towerexclusion").set_cellv(build_tile , 2) # colocando o tile obstructed cujo id eh 2 no mapa
-=======
-		#map_node.get_node("towerexclusion").set_cellv(buid_title , 2) # colocando o title obstructed cujo id eh 2 no mapa
->>>>>>> d85dc91670cbf49b82ce05b1fbf66fa66be5ca8b
-
+		#map_node.get_node("towerexclusion").set_cellv(build_tile , 2) # colocando o tile obstructed cujo id eh 2 no mapa
 
 func _unhandled_input(event):
 	if event.is_action_released("ui_cancel") and build_mode == true:
