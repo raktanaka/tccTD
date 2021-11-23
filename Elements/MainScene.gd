@@ -15,13 +15,15 @@ var build_tile
 
 var onda_inimigos_atual = 0
 var inimigos_ainda_vivos = 0
-var base_health  = 100 # Doubled life, so the algorithm has more time to evolve
+var base_health  = 100
 var total_damage = 0 # Damage logging for statistical purposes
 
 # Automatic Test Mode variables
 var test_towers
 var test_enemies
 var test_mode = false
+var test_rounds = 29 # 30 waves de teste
+var test_health = 9223372036854775807 # signed 64bit int
 
 var ENEMIES_ONE_EACH = [['EnemyRed', 1], ['EnemyGreen', 1], ['EnemyBlue', 1], ['EnemyYellow', 1], ['EnemyPurple', 1], ['EnemyOrange', 1]]
 var ENEMIES_ALL_RED = [['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1]]
@@ -46,6 +48,7 @@ func init_params(towers, enemies):
 	test_mode = true
 	test_towers = towers
 	test_enemies = enemies
+	base_health = test_health
 
 #######################################################################
 #
@@ -149,9 +152,12 @@ func _process(_delta):
 				'AI':
 					var wave = AI.start_experiment()
 					print(wave)
+					print(base_health)
 					start_next_wave(wave)   #### DESCOBRI PQ SE DESCOMENTAR NEW GAME E QUIT PARAM DE FUNCIONAR
 				'Random':
-					pass
+					var wave = random_enemies()
+					print(wave)
+					start_next_wave(wave)
 				'AllRed':
 					start_next_wave(ENEMIES_ALL_RED)
 				'AllGreen':
@@ -170,7 +176,15 @@ func _process(_delta):
 			start_next_wave(wave)   #### DESCOBRI PQ SE DESCOMENTAR NEW GAME E QUIT PARAM DE FUNCIONAR
 
 func random_enemies():
-	pass
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var n = ENEMIES_ONE_EACH.size()
+	var enemy_list = []
+	for i in range(n):
+		var item = ENEMIES_ONE_EACH[randi() % n]
+		enemy_list.append(item)
+	
+	return enemy_list 
 
 #######################################################################
 #
@@ -185,7 +199,7 @@ func start_first_wave(): # roda quando da play
 		'AI':
 			wave = ENEMIES_ONE_EACH
 		'Random':
-			wave = ENEMIES_ONE_EACH
+			wave = random_enemies()
 		'AllRed':
 			wave = ENEMIES_ALL_RED
 		'AllGreen':
