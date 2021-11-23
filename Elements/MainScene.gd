@@ -21,6 +21,7 @@ var total_damage = 0 # Damage logging for statistical purposes
 # Automatic Test Mode variables
 var test_towers
 var test_enemies
+var test_mode = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,7 +33,10 @@ func _ready():
 	#start_next_wave()
 	
 # Test mode parameters
+# towers: 		'AllGreen', 'AllRed', 'GreenRed', 'RedGreen'
+# enemies: 'AI', 'Random', 'AllGreen', 'AllRed', 'AllBlue', 'AllGray', 'AllOrange'
 func init_params(towers, enemies):
+	test_mode = true
 	test_towers = towers
 	test_enemies = enemies
 
@@ -81,7 +85,9 @@ func verify_and_build():
 		new_tower.built = true
 		new_tower.type = build_type
 		map_node.get_node("Torres").add_child(new_tower,true)
-		#map_node.get_node("towerexclusion").set_cellv(build_tile , 2) # colocando o tile obstructed cujo id eh 2 no mapa
+		# Blocks tower overlap, but bugs out because in test mode the id changes
+		# due to the tree changes
+		#map_node.get_node("towerexclusion").set_cellv(build_tile , 3) # colocando o tile obstructed cujo id eh 2 no mapa
 
 func _unhandled_input(event):
 	if event.is_action_released("ui_cancel") and build_mode == true:
@@ -96,7 +102,6 @@ func test_mode_build_towers():
 	var tower_locations = PoolVector2Array()
 	tower_locations = [Vector2(256, 448), Vector2(640, 384)]
 	var tower_types = []
-	print(test_towers)
 	match test_towers:
 		'AllGreen':
 			tower_types = ['TowerGreen', 'TowerGreen']
@@ -138,18 +143,19 @@ func _process(_delta):
 #
 ########################################################################
 
-# "Começa" a AI, gera nova wave
+
 func start_next_wave(): # roda quando da play e qd o player mata toda a onda
 	var wave = retrieve_wave_data()
 	yield(get_tree().create_timer(0.5), "timeout")#padding
 	spawn_enemies(wave)
 	
+# "Começa" a AI, gera nova wave
 func start_next_wave_AI(wave): # roda quando da play e qd o player mata toda a onda
 	yield(get_tree().create_timer(0.5), "timeout")#padding
 	spawn_enemies(wave)
 
 func retrieve_wave_data():
-	var dados_inimigos = [['EnemyRed', 1], ['EnemyGreen', 0.9], ['EnemyGray', 0.2], ['Enemy_tanq', 1], ['EnemyBlue', 0.1], ['EnemyGray', 0.2]]
+	var dados_inimigos = [['EnemyRed', 1], ['EnemyGreen', 0.9], ['EnemyGray', 0.2], ['EnemyOrange', 1], ['EnemyBlue', 0.1], ['EnemyGray', 0.2]]
 	inimigos_ainda_vivos = dados_inimigos.size()
 	return dados_inimigos
 	
@@ -178,18 +184,21 @@ func on_base_damage(damage):
 #   Windows: %APPDATA%\Godot\
 #   macOS: ~/Library/Application Support/Godot/
 #   Linux: ~/.local/share/godot/
-
+# Only in test mode
 func write_data(data):
-	var path = 'user://' + test_towers + ' - ' + test_enemies + '.csv'
-	var file = File.new()
+	if test_mode:
+		var path = 'user://' + test_towers + ' - ' + test_enemies + '.csv'
+		var file = File.new()
 	
-	# All this to be able to append to file
-	if file.file_exists(path):
-		file.open(path, File.READ_WRITE)
-		file.seek_end()
-		file.store_string('; ')
+		# All this to be able to append to file
+		if file.file_exists(path):
+			file.open(path, File.READ_WRITE)
+			file.seek_end()
+			file.store_string('; ')
+		else:
+			file.open(path, File.WRITE)
+			
+		file.store_string(str(data))
+		file.close()
 	else:
-		file.open(path, File.WRITE)
-		
-	file.store_string(str(data))
-	file.close()
+		pass

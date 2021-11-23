@@ -108,6 +108,6 @@ func update_health_bar(base_health):
 func _on_VOLTAR_MENU_pressed():
 	print('voltar')
 	get_tree().change_scene("res://Elements/GerenciarCena.tscn")
-	pass # Replace with function body.
+	
 
 

@@ -5,11 +5,10 @@
 [ext_resource path="res://Assets/textture1.png" type="Texture" id=3]
 [ext_resource path="res://Assets/fonts/fonte_usada-no_menu.tres" type="DynamicFont" id=4]
 
-[sub_resource type="ButtonGroup" id=2]
+[sub_resource type="ButtonGroup" id=1]
 resource_name = "Towers"
 
-[sub_resource type="ButtonGroup" id=1]
-resource_name = "Enemies"
+[sub_resource type="ButtonGroup" id=2]
 
 [node name="TestMenu" type="Control"]
 __meta__ = {
@@ -39,23 +38,23 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="towers"]
-margin_top = 43.0
+margin_top = 42.0
 margin_right = 381.0
-margin_bottom = 57.0
+margin_bottom = 56.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "SELECT TOWERS"
 align = 1
 
 [node name="PlayersChoice" type="TextureButton" parent="towers"]
 margin_left = 40.0
-margin_top = 67.0
+margin_top = 66.0
 margin_right = 340.0
-margin_bottom = 117.0
+margin_bottom = 116.0
 rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
 toggle_mode = true
-group = SubResource( 2 )
+group = SubResource( 1 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
@@ -74,14 +73,14 @@ __meta__ = {
 
 [node name="AllGreen" type="TextureButton" parent="towers"]
 margin_left = 40.0
-margin_top = 127.0
+margin_top = 126.0
 margin_right = 340.0
-margin_bottom = 177.0
+margin_bottom = 176.0
 rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
 toggle_mode = true
-group = SubResource( 2 )
+group = SubResource( 1 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
@@ -100,14 +99,14 @@ __meta__ = {
 
 [node name="AllRed" type="TextureButton" parent="towers"]
 margin_left = 40.0
-margin_top = 187.0
+margin_top = 186.0
 margin_right = 340.0
-margin_bottom = 237.0
+margin_bottom = 236.0
 rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
 toggle_mode = true
-group = SubResource( 2 )
+group = SubResource( 1 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
@@ -126,14 +125,14 @@ __meta__ = {
 
 [node name="GreenRed" type="TextureButton" parent="towers"]
 margin_left = 40.0
-margin_top = 247.0
+margin_top = 246.0
 margin_right = 340.0
-margin_bottom = 297.0
+margin_bottom = 296.0
 rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
 toggle_mode = true
-group = SubResource( 2 )
+group = SubResource( 1 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
@@ -156,14 +155,14 @@ __meta__ = {
 
 [node name="RedGreen" type="TextureButton" parent="towers"]
 margin_left = 40.0
-margin_top = 307.0
+margin_top = 306.0
 margin_right = 340.0
-margin_bottom = 357.0
+margin_bottom = 356.0
 rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
 toggle_mode = true
-group = SubResource( 2 )
+group = SubResource( 1 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
@@ -210,7 +209,7 @@ rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
 toggle_mode = true
-group = SubResource( 1 )
+group = SubResource( 2 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
@@ -240,7 +239,7 @@ rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
 toggle_mode = true
-group = SubResource( 1 )
+group = SubResource( 2 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
@@ -270,7 +269,7 @@ rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
 toggle_mode = true
-group = SubResource( 1 )
+group = SubResource( 2 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
@@ -296,7 +295,7 @@ rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
 toggle_mode = true
-group = SubResource( 1 )
+group = SubResource( 2 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
@@ -322,7 +321,7 @@ rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
 toggle_mode = true
-group = SubResource( 1 )
+group = SubResource( 2 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
@@ -352,7 +351,7 @@ rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
 toggle_mode = true
-group = SubResource( 1 )
+group = SubResource( 2 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
@@ -373,7 +372,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AllTanq" type="TextureButton" parent="enemies"]
+[node name="AllOrange" type="TextureButton" parent="enemies"]
 margin_left = 200.0
 margin_top = 384.0
 margin_right = 500.0
@@ -382,12 +381,12 @@ rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
 toggle_mode = true
-group = SubResource( 1 )
+group = SubResource( 2 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
 
-[node name="label" type="Label" parent="enemies/AllTanq"]
+[node name="label" type="Label" parent="enemies/AllOrange"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.25989
@@ -395,7 +394,7 @@ margin_top = 1.25992
 margin_right = 1.25989
 margin_bottom = 1.25992
 custom_fonts/font = ExtResource( 4 )
-text = "ALL TANQ"
+text = "ALL ORANGE"
 align = 1
 valign = 1
 uppercase = true
