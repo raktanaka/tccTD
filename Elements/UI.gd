@@ -65,7 +65,7 @@ func _on_Button_pressed():
 	elif get_tree().is_paused():
 		get_tree().paused = false
 	elif get_parent().onda_inimigos_atual == 0:
-		get_parent().start_next_wave()
+		get_parent().start_first_wave()
 	else :
 		get_tree().paused = true
 	pass # Replace with function body.

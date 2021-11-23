@@ -23,6 +23,14 @@ var test_towers
 var test_enemies
 var test_mode = false
 
+var ENEMIES_ONE_EACH = [['EnemyRed', 1], ['EnemyGreen', 1], ['EnemyBlue', 1], ['EnemyYellow', 1], ['EnemyPurple', 1], ['EnemyOrange', 1]]
+var ENEMIES_ALL_RED = [['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1]]
+var ENEMIES_ALL_GREEN = [['EnemyGreen', 1], ['EnemyGreen', 1], ['EnemyGreen', 1], ['EnemyGreen', 1], ['EnemyGreen', 1], ['EnemyGreen', 1]]
+var ENEMIES_ALL_BLUE = [['EnemyBlue', 1], ['EnemyBlue', 1], ['EnemyBlue', 1], ['EnemyBlue', 1], ['EnemyBlue', 1], ['EnemyBlue', 1]]
+var ENEMIES_ALL_YELLOW = [['EnemyYellow', 1], ['EnemyYellow', 1], ['EnemyYellow', 1], ['EnemyYellow', 1], ['EnemyYellow', 1], ['EnemyYellow', 1]]
+var ENEMIES_ALL_PURPLE = [['EnemyPurple', 1], ['EnemyPurple', 1], ['EnemyPurple', 1], ['EnemyPurple', 1], ['EnemyPurple', 1], ['EnemyPurple', 1]]
+var ENEMIES_ALL_ORANGE = [['EnemyOrange', 1], ['EnemyOrange', 1], ['EnemyOrange', 1], ['EnemyOrange', 1], ['EnemyOrange', 1], ['EnemyOrange', 1]]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	map_node = get_node("Mapa")
@@ -30,7 +38,6 @@ func _ready():
 	for i in get_tree().get_nodes_in_group('build_botoes'):
 		var t = i.get_name()
 		i.connect('pressed',self,'iniciar_botao', [t])
-	#start_next_wave()
 	
 # Test mode parameters
 # towers: 		'AllGreen', 'AllRed', 'GreenRed', 'RedGreen'
@@ -47,7 +54,8 @@ func init_params(towers, enemies):
 ########################################################################
 
 func iniciar_botao(tipo_de_torre):
-	if build_mode :
+
+	if build_mode:
 		cancel_build_mode()
 	build_type = tipo_de_torre
 	build_mode = true
@@ -65,10 +73,11 @@ func update_tower_preview():
 		build_valid = true
 		build_location= tile_position
 		build_tile =  tile_atual
-	
+		
 	else:
 		get_node('UI').update_tower_preview(tile_position, "ff002a")
 		build_valid = false
+		
 	
 func cancel_build_mode():
 	build_mode = false
@@ -78,6 +87,7 @@ func cancel_build_mode():
 	
 func verify_and_build():
 	var new_tower
+	print('verify and build')
 	if build_valid:
 #		print(build_type)
 		new_tower = load("res://Elements/Tower/" + build_type + ".tscn").instance()
@@ -87,12 +97,13 @@ func verify_and_build():
 		map_node.get_node("Torres").add_child(new_tower,true)
 		# Blocks tower overlap, but bugs out because in test mode the id changes
 		# due to the tree changes
-		#map_node.get_node("towerexclusion").set_cellv(build_tile , 3) # colocando o tile obstructed cujo id eh 2 no mapa
+		#map_node.get_node("towerexclusion").set_cellv(build_tile , 2) # colocando o tile obstructed cujo id eh 2 no mapa
 
 func _unhandled_input(event):
 	if event.is_action_released("ui_cancel") and build_mode == true:
 		cancel_build_mode()
 	elif event.is_action_released("ui_accept") and build_mode == true:
+		print('update tower preview')
 		verify_and_build()
 		cancel_build_mode()
 
@@ -129,14 +140,41 @@ func _process(_delta):
 	if build_mode:
 		update_tower_preview()
 	
-	## build next wave
 	if !build_enemy && get_tree().get_nodes_in_group("Enemy").size() == 0 && onda_inimigos_atual > 0:
 		build_enemy = true
+		
+		if test_mode:
+			match test_enemies:
+				'AI':
+					ai_enemies()
+				'Random':
+					pass
+				'AllRed':
+					pass
+				'AllGreen':
+					green_enemies()
+				'AllBlue':
+					pass
+				'AllYellow':
+					pass
+				'AllPurple':
+					pass
+				'AllOrange':
+					pass
+		else:
+			## build next wave in default mode
+			ai_enemies()
+	
+func ai_enemies():
 		var wave = AI.start_experiment()
 		print(wave)
 		start_next_wave_AI(wave)   #### DESCOBRI PQ SE DESCOMENTAR NEW GAME E QUIT PARAM DE FUNCIONAR
 
-
+func random_enemies():
+	pass
+	
+func green_enemies():
+	pass
 #######################################################################
 #
 #  Funções para inimigos
@@ -144,7 +182,7 @@ func _process(_delta):
 ########################################################################
 
 
-func start_next_wave(): # roda quando da play e qd o player mata toda a onda
+func start_first_wave(): # roda quando da play
 	var wave = retrieve_wave_data()
 	yield(get_tree().create_timer(0.5), "timeout")#padding
 	spawn_enemies(wave)
@@ -155,8 +193,26 @@ func start_next_wave_AI(wave): # roda quando da play e qd o player mata toda a o
 	spawn_enemies(wave)
 
 func retrieve_wave_data():
-	var dados_inimigos = [['EnemyRed', 1], ['EnemyGreen', 0.9], ['EnemyGray', 0.2], ['EnemyOrange', 1], ['EnemyBlue', 0.1], ['EnemyGray', 0.2]]
-	inimigos_ainda_vivos = dados_inimigos.size()
+	var dados_inimigos = ENEMIES_ONE_EACH
+	match test_enemies:
+		'AI':
+			dados_inimigos = ENEMIES_ONE_EACH
+		'Random':
+			dados_inimigos = ENEMIES_ONE_EACH
+		'AllRed':
+			dados_inimigos = ENEMIES_ALL_RED
+		'AllGreen':
+			dados_inimigos = ENEMIES_ALL_GREEN
+		'AllBlue':
+			dados_inimigos = ENEMIES_ALL_BLUE
+		'AllYellow':
+			dados_inimigos = ENEMIES_ALL_YELLOW
+		'AllPurple':
+			dados_inimigos = ENEMIES_ALL_PURPLE
+		'AllOrange':
+			dados_inimigos = ENEMIES_ALL_ORANGE
+			
+	var inimigos_ainda_vivos = dados_inimigos.size()
 	return dados_inimigos
 	
 func spawn_enemies(wave):

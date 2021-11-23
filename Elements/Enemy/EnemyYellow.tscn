@@ -1,31 +1,29 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Assets/enemy_orange.png" type="Texture" id=1]
-[ext_resource path="res://Elements/Enemy/enemy_orange.gd" type="Script" id=2]
-[ext_resource path="res://Assets/enemy_turret_orange.png" type="Texture" id=3]
+[ext_resource path="res://Assets/enemy_yellow.png" type="Texture" id=1]
+[ext_resource path="res://Elements/Enemy/enemy_yellow.gd" type="Script" id=2]
+[ext_resource path="res://Assets/enemy_turret_yellow.png" type="Texture" id=3]
 [ext_resource path="res://Assets/UI/HPbar.jpg" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 52.2084, 35 )
+extents = Vector2( 52, 36 )
 
-[node name="EnemyOrange" type="PathFollow2D" groups=[
+[node name="EnemyYellow" type="PathFollow2D" groups=[
 "Enemy",
 ]]
 position = Vector2( -21.8705, 545.449 )
 script = ExtResource( 2 )
 
-[node name="EnemyRed" type="KinematicBody2D" parent="."]
+[node name="EnemyYellow" type="KinematicBody2D" parent="."]
 scale = Vector2( 0.4, 0.4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyRed"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyYellow"]
 shape = SubResource( 1 )
 
-[node name="enemy_orange" type="Sprite" parent="EnemyRed"]
-position = Vector2( -0.729, -0.757 )
+[node name="enemy_yellow" type="Sprite" parent="EnemyYellow"]
 texture = ExtResource( 1 )
 
-[node name="enemy_turret_orange" type="Sprite" parent="EnemyRed"]
-position = Vector2( 0.743, 0.014 )
+[node name="enemy_turret_yellow" type="Sprite" parent="EnemyYellow"]
 scale = Vector2( 1, 1 )
 texture = ExtResource( 3 )
 

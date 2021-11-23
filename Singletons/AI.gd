@@ -4,11 +4,11 @@ extends Node
 
 ## chromosome [enemy_type, delay_time]
 
-var Enemy_Type = ['EnemyRed', 'EnemyGreen', 'EnemyGray', 'EnemyBlue', 'EnemyOrange']
+var Enemy_Type = ['EnemyRed', 'EnemyGreen', 'EnemyBlue', 'EnemyYellow', 'EnemyPurple', 'EnemyOrange']
 
 var Max_time = 5
 
-var population = [['EnemyRed', 1], ['EnemyGreen', 0.9], ['EnemyGray', 0.2], ['EnemyOrange', 1], ['EnemyBlue', 0.1], ['EnemyGray', 0.2]]
+var population = [['EnemyRed', 1], ['EnemyGreen', 1], ['EnemyBlue', 1], ['EnemyYellow', 1], ['EnemyPurple', 1], ['EnemyOrange', 1]]
 
 ## receives the results that this generation achieved
 ## in this example, receives a vector [REACHED_GOAL_BIN, TIME_ALIVE]
