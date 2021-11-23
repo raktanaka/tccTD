@@ -11,10 +11,11 @@ func load_test_menu():
 	$TestMenu/buttons/Return.connect("pressed",self,"return_main")
 	
 func test_mode_pressed():
-	#get_node("GerenciarCena").queue_free()
+
 	var params = get_params()
 	var towers = params[0]
 	var enemies = params[1]
+	get_node("TestMenu").queue_free()
 	var scene = load('res://Elements/MainScene.tscn').instance()
 	scene.connect("game_finished",self, 'unload_game')
 	scene.init_params(towers, enemies)
@@ -23,8 +24,9 @@ func test_mode_pressed():
 		scene.test_mode_build_towers()
 
 func return_main():
+	
+	get_node("TestMenu").queue_free()
 	get_tree().change_scene("res://Elements/GerenciarCena.tscn")
-	#get_node("TestMenu").queue_free()
 	#var main_menu = load('res://Elements/GerenciarCena.tscn').instance()
 	#add_child(main_menu)
 

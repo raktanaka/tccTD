@@ -57,6 +57,7 @@ func iniciar_botao(tipo_de_torre):
 
 	if build_mode:
 		cancel_build_mode()
+	
 	build_type = tipo_de_torre
 	build_mode = true
 	get_node("UI").set_tower_preview(build_type, get_global_position())
@@ -86,10 +87,9 @@ func cancel_build_mode():
 	get_node("UI/tower_preview").free() # delete imediatamente
 	
 func verify_and_build():
+	
 	var new_tower
-	print('verify and build')
 	if build_valid:
-#		print(build_type)
 		new_tower = load("res://Elements/Tower/" + build_type + ".tscn").instance()
 		new_tower.position = build_location
 		new_tower.built = true
@@ -100,15 +100,16 @@ func verify_and_build():
 		#map_node.get_node("towerexclusion").set_cellv(build_tile , 2) # colocando o tile obstructed cujo id eh 2 no mapa
 
 func _unhandled_input(event):
+	
 	if event.is_action_released("ui_cancel") and build_mode == true:
 		cancel_build_mode()
 	elif event.is_action_released("ui_accept") and build_mode == true:
-		print('update tower preview')
 		verify_and_build()
 		cancel_build_mode()
 
 
 func test_mode_build_towers():
+	
 	# Tested at locations (256, 448) and (640, 384)
 	var tower_locations = PoolVector2Array()
 	tower_locations = [Vector2(256, 448), Vector2(640, 384)]
@@ -146,35 +147,31 @@ func _process(_delta):
 		if test_mode:
 			match test_enemies:
 				'AI':
-					ai_enemies()
+					var wave = AI.start_experiment()
+					print(wave)
+					start_next_wave(wave)   #### DESCOBRI PQ SE DESCOMENTAR NEW GAME E QUIT PARAM DE FUNCIONAR
 				'Random':
 					pass
 				'AllRed':
-					pass
+					start_next_wave(ENEMIES_ALL_RED)
 				'AllGreen':
-					green_enemies()
+					start_next_wave(ENEMIES_ALL_GREEN)
 				'AllBlue':
-					pass
+					start_next_wave(ENEMIES_ALL_BLUE)
 				'AllYellow':
-					pass
+					start_next_wave(ENEMIES_ALL_YELLOW)
 				'AllPurple':
-					pass
+					start_next_wave(ENEMIES_ALL_PURPLE)
 				'AllOrange':
-					pass
+					start_next_wave(ENEMIES_ALL_ORANGE)
 		else:
-			## build next wave in default mode
-			ai_enemies()
-	
-func ai_enemies():
-		var wave = AI.start_experiment()
-		print(wave)
-		start_next_wave_AI(wave)   #### DESCOBRI PQ SE DESCOMENTAR NEW GAME E QUIT PARAM DE FUNCIONAR
+			var wave = AI.start_experiment()
+			print(wave)
+			start_next_wave(wave)   #### DESCOBRI PQ SE DESCOMENTAR NEW GAME E QUIT PARAM DE FUNCIONAR
 
 func random_enemies():
 	pass
-	
-func green_enemies():
-	pass
+
 #######################################################################
 #
 #  Funções para inimigos
@@ -183,38 +180,35 @@ func green_enemies():
 
 
 func start_first_wave(): # roda quando da play
-	var wave = retrieve_wave_data()
+	var wave = ENEMIES_ONE_EACH
+	match test_enemies:
+		'AI':
+			wave = ENEMIES_ONE_EACH
+		'Random':
+			wave = ENEMIES_ONE_EACH
+		'AllRed':
+			wave = ENEMIES_ALL_RED
+		'AllGreen':
+			wave = ENEMIES_ALL_GREEN
+		'AllBlue':
+			wave = ENEMIES_ALL_BLUE
+		'AllYellow':
+			wave = ENEMIES_ALL_YELLOW
+		'AllPurple':
+			wave = ENEMIES_ALL_PURPLE
+		'AllOrange':
+			wave = ENEMIES_ALL_ORANGE
+			
+	var inimigos_ainda_vivos = wave.size()
 	yield(get_tree().create_timer(0.5), "timeout")#padding
+	print('first wave')
+	print(wave)
 	spawn_enemies(wave)
 	
-# "Começa" a AI, gera nova wave
-func start_next_wave_AI(wave): # roda quando da play e qd o player mata toda a onda
+func start_next_wave(wave): # roda quando da play e qd o player mata toda a onda
 	yield(get_tree().create_timer(0.5), "timeout")#padding
 	spawn_enemies(wave)
 
-func retrieve_wave_data():
-	var dados_inimigos = ENEMIES_ONE_EACH
-	match test_enemies:
-		'AI':
-			dados_inimigos = ENEMIES_ONE_EACH
-		'Random':
-			dados_inimigos = ENEMIES_ONE_EACH
-		'AllRed':
-			dados_inimigos = ENEMIES_ALL_RED
-		'AllGreen':
-			dados_inimigos = ENEMIES_ALL_GREEN
-		'AllBlue':
-			dados_inimigos = ENEMIES_ALL_BLUE
-		'AllYellow':
-			dados_inimigos = ENEMIES_ALL_YELLOW
-		'AllPurple':
-			dados_inimigos = ENEMIES_ALL_PURPLE
-		'AllOrange':
-			dados_inimigos = ENEMIES_ALL_ORANGE
-			
-	var inimigos_ainda_vivos = dados_inimigos.size()
-	return dados_inimigos
-	
 func spawn_enemies(wave):
 	for i in wave:
 		var new_inimigo = load('res://Elements/Enemy/' + i[0] + ".tscn").instance()

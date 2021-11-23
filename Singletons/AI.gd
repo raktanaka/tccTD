@@ -147,6 +147,7 @@ func mutation_string (idx):
 		
 	var random_index = rng.randi_range (0, gene.size() - 1)
 	
+	print('mutation')
 	print (gene[random_index])
 	
 	return gene[random_index]
@@ -171,11 +172,14 @@ func mutation(offspring_crossover):
 		elif offspring_crossover[idx][random_index] is float:
 			offspring_crossover[idx][random_index] += mutation_float (random_index)
 
+	print('offspring crossover')
+	print(offspring_crossover)
 	return offspring_crossover
 
 func start_experiment ():
 	var num_parents_mating = 4
 	
+	print('population res')
 	print (population_res)
 	
 	# Measuring the fitness of each chromosome in the population.
