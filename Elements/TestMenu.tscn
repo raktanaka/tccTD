@@ -1,0 +1,463 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/background1.png" type="Texture" id=1]
+[ext_resource path="res://Assets/textture.png" type="Texture" id=2]
+[ext_resource path="res://Assets/textture1.png" type="Texture" id=3]
+[ext_resource path="res://Assets/fonts/fonte_usada-no_menu.tres" type="DynamicFont" id=4]
+
+[sub_resource type="ButtonGroup" id=2]
+resource_name = "Towers"
+
+[sub_resource type="ButtonGroup" id=1]
+resource_name = "Enemies"
+
+[node name="TestMenu" type="Control"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1090.0
+margin_bottom = 603.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="towers" type="VBoxContainer" parent="."]
+margin_left = 28.9405
+margin_top = 37.8811
+margin_right = 409.941
+margin_bottom = 437.881
+custom_constants/separation = 10
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="towers"]
+margin_top = 43.0
+margin_right = 381.0
+margin_bottom = 57.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "SELECT TOWERS"
+align = 1
+
+[node name="PlayersChoice" type="TextureButton" parent="towers"]
+margin_left = 40.0
+margin_top = 67.0
+margin_right = 340.0
+margin_bottom = 117.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+toggle_mode = true
+group = SubResource( 2 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="label" type="Label" parent="towers/PlayersChoice"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 4 )
+text = "PLAYER'S CHOICE"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AllGreen" type="TextureButton" parent="towers"]
+margin_left = 40.0
+margin_top = 127.0
+margin_right = 340.0
+margin_bottom = 177.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+toggle_mode = true
+group = SubResource( 2 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="label" type="Label" parent="towers/AllGreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 4 )
+text = "ALL GREEN"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AllRed" type="TextureButton" parent="towers"]
+margin_left = 40.0
+margin_top = 187.0
+margin_right = 340.0
+margin_bottom = 237.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+toggle_mode = true
+group = SubResource( 2 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="label" type="Label" parent="towers/AllRed"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 4 )
+text = "ALL RED"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GreenRed" type="TextureButton" parent="towers"]
+margin_left = 40.0
+margin_top = 247.0
+margin_right = 340.0
+margin_bottom = 297.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+toggle_mode = true
+group = SubResource( 2 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="label" type="Label" parent="towers/GreenRed"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.25989
+margin_top = 1.25992
+margin_right = 1.25989
+margin_bottom = 1.25992
+custom_fonts/font = ExtResource( 4 )
+text = "GREEN + RED"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RedGreen" type="TextureButton" parent="towers"]
+margin_left = 40.0
+margin_top = 307.0
+margin_right = 340.0
+margin_bottom = 357.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+toggle_mode = true
+group = SubResource( 2 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="label" type="Label" parent="towers/RedGreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.25989
+margin_top = 1.25992
+margin_right = 1.25989
+margin_bottom = 1.25992
+custom_fonts/font = ExtResource( 4 )
+text = "RED + GREEN"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="enemies" type="VBoxContainer" parent="."]
+margin_left = 400.0
+margin_top = 40.0
+margin_right = 1100.0
+margin_bottom = 474.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="enemies"]
+margin_right = 700.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "SELECT ENEMIES"
+align = 1
+
+[node name="AI" type="TextureButton" parent="enemies"]
+margin_left = 200.0
+margin_top = 24.0
+margin_right = 500.0
+margin_bottom = 74.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+toggle_mode = true
+group = SubResource( 1 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="label" type="Label" parent="enemies/AI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.25989
+margin_top = 1.25992
+margin_right = 1.25989
+margin_bottom = 1.25992
+custom_fonts/font = ExtResource( 4 )
+text = "AI"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Random" type="TextureButton" parent="enemies"]
+margin_left = 200.0
+margin_top = 84.0
+margin_right = 500.0
+margin_bottom = 134.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+toggle_mode = true
+group = SubResource( 1 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="label" type="Label" parent="enemies/Random"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.25989
+margin_top = 1.25992
+margin_right = 1.25989
+margin_bottom = 1.25992
+custom_fonts/font = ExtResource( 4 )
+text = "Random"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AllGreen" type="TextureButton" parent="enemies"]
+margin_left = 200.0
+margin_top = 144.0
+margin_right = 500.0
+margin_bottom = 194.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+toggle_mode = true
+group = SubResource( 1 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="label" type="Label" parent="enemies/AllGreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 4 )
+text = "ALL GREEN"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AllRed" type="TextureButton" parent="enemies"]
+margin_left = 200.0
+margin_top = 204.0
+margin_right = 500.0
+margin_bottom = 254.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+toggle_mode = true
+group = SubResource( 1 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="label" type="Label" parent="enemies/AllRed"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 4 )
+text = "ALL RED"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AllBlue" type="TextureButton" parent="enemies"]
+margin_left = 200.0
+margin_top = 264.0
+margin_right = 500.0
+margin_bottom = 314.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+toggle_mode = true
+group = SubResource( 1 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="label" type="Label" parent="enemies/AllBlue"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.25989
+margin_top = 1.25992
+margin_right = 1.25989
+margin_bottom = 1.25992
+custom_fonts/font = ExtResource( 4 )
+text = "ALL BLUE"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AllGray" type="TextureButton" parent="enemies"]
+margin_left = 200.0
+margin_top = 324.0
+margin_right = 500.0
+margin_bottom = 374.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+toggle_mode = true
+group = SubResource( 1 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="label" type="Label" parent="enemies/AllGray"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.25989
+margin_top = 1.25992
+margin_right = 1.25989
+margin_bottom = 1.25992
+custom_fonts/font = ExtResource( 4 )
+text = "ALL GRAY"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AllTanq" type="TextureButton" parent="enemies"]
+margin_left = 200.0
+margin_top = 384.0
+margin_right = 500.0
+margin_bottom = 434.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+toggle_mode = true
+group = SubResource( 1 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="label" type="Label" parent="enemies/AllTanq"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.25989
+margin_top = 1.25992
+margin_right = 1.25989
+margin_bottom = 1.25992
+custom_fonts/font = ExtResource( 4 )
+text = "ALL TANQ"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="buttons" type="HBoxContainer" parent="."]
+margin_left = 53.941
+margin_top = 500.0
+margin_right = 1028.94
+margin_bottom = 550.0
+grow_horizontal = 0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="TestMode" type="TextureButton" parent="buttons"]
+margin_left = 182.0
+margin_right = 482.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="label" type="Label" parent="buttons/TestMode"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 4 )
+text = "START TEST MODE"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Return" type="TextureButton" parent="buttons"]
+margin_left = 492.0
+margin_right = 792.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 5
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="label" type="Label" parent="buttons/Return"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.25989
+margin_top = 1.25992
+margin_right = 1.25989
+margin_bottom = 1.25992
+custom_fonts/font = ExtResource( 4 )
+text = "RETURN"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
