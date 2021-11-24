@@ -16,9 +16,11 @@ var build_tile
 var onda_inimigos_atual = 0
 var inimigos_ainda_vivos = 0
 var base_health  = 100
+var wave_damage = 0
 var total_damage = 0 # Damage logging for statistical purposes
 
 # Automatic Test Mode variables
+var test_result_waves = ''
 var test_towers = 'players'
 var test_enemies = 'ai'
 var test_mode = false
@@ -149,29 +151,29 @@ func _process(_delta):
 		
 		if test_mode:
 			if onda_inimigos_atual == TEST_WAVES:
-				write_data(total_damage)
+				write_file(total_damage, test_result_waves)
 				emit_signal("game_finished", false)
 			else:
+				var wave
 				match test_enemies:
 					'AI':
-						var wave = AI.start_experiment()
-						start_next_wave(wave)   #### DESCOBRI PQ SE DESCOMENTAR NEW GAME E QUIT PARAM DE FUNCIONAR
+						wave = AI.start_experiment()
 					'Random':
-						var wave = random_enemies()
-						print(wave)
-						start_next_wave(wave)
+						wave = random_enemies()
 					'AllRed':
-						start_next_wave(ENEMIES_ALL_RED)
+						wave = ENEMIES_ALL_RED
 					'AllGreen':
-						start_next_wave(ENEMIES_ALL_GREEN)
+						wave = ENEMIES_ALL_GREEN
 					'AllBlue':
-						start_next_wave(ENEMIES_ALL_BLUE)
+						wave = ENEMIES_ALL_BLUE
 					'AllYellow':
-						start_next_wave(ENEMIES_ALL_YELLOW)
+						wave = ENEMIES_ALL_YELLOW
 					'AllPurple':
-						start_next_wave(ENEMIES_ALL_PURPLE)
+						wave = ENEMIES_ALL_PURPLE
 					'AllOrange':
-						start_next_wave(ENEMIES_ALL_ORANGE)
+						wave = ENEMIES_ALL_ORANGE
+				test_result_waves += str(wave)
+				start_next_wave(wave)
 		else:
 			var wave = AI.start_experiment()
 			print(wave)
@@ -215,6 +217,7 @@ func start_first_wave(): # roda quando da play
 		'AllOrange':
 			wave = ENEMIES_ALL_ORANGE
 		
+	test_result_waves += str(wave)
 	var inimigos_ainda_vivos = wave.size()
 	yield(get_tree().create_timer(0.5), "timeout")#padding
 	print('first wave')
@@ -222,11 +225,14 @@ func start_first_wave(): # roda quando da play
 	spawn_enemies(wave)
 	
 func start_next_wave(wave): # roda quando da play e qd o player mata toda a onda
+	
 	yield(get_tree().create_timer(0.5), "timeout")#padding
 	spawn_enemies(wave)
 
 func spawn_enemies(wave):
+	test_result_waves += '; ' + str(wave_damage) + '\n'
 	onda_inimigos_atual += 1
+	wave_damage = 0
 	$UI.update_wave_num(onda_inimigos_atual)
 	for i in wave:
 		var new_inimigo = load('res://Elements/Enemy/' + i[0] + ".tscn").instance()
@@ -237,32 +243,35 @@ func spawn_enemies(wave):
 	build_enemy = false
 
 func on_base_damage(damage):
+	wave_damage += damage
 	total_damage += damage
 	base_health = base_health - damage
-	#print('damage...', 'hp: ', base_health)
-	if base_health <= 0:
-		emit_signal("game_finished", false)
+	
+	if test_mode:
+		pass
 	else:
-		$UI.update_health_bar(base_health)
+		if base_health <= 0:
+			emit_signal("game_finished", false)
+		else:
+			$UI.update_health_bar(base_health)
 
 # File writing at
 #   Windows: %APPDATA%\Godot\
 #   macOS: ~/Library/Application Support/Godot/
 #   Linux: ~/.local/share/godot/
 # Only in test mode
-func write_data(data):
+func write_file(dmg, list_waves):
 
-	var path = 'user://' + test_towers + ' - ' + test_enemies + '.csv'
+	var path = 'user://' + test_towers + ' - ' + test_enemies + '.txt'
 	var file = File.new()
 
 	# All this to be able to append to file
 	if file.file_exists(path):
 		file.open(path, File.READ_WRITE)
 		file.seek_end()
-		file.store_string('; ')
 	else:
 		file.open(path, File.WRITE)
-		
-	file.store_string(str(data))
+	
+	file.store_string(test_result_waves + '\n' + str(dmg) + '\n')
 	file.close()
 
