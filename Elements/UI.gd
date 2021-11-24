@@ -2,7 +2,8 @@ extends CanvasLayer
 
 onready var hp_bar       = get_node("Control/infobar/HBoxContainer/Barradevida")
 onready var hp_bar_tween = get_node("Control/infobar/HBoxContainer/Barradevida/Tween")
- 
+onready var ui_wave_num = get_node("Control/infobar/HBoxContainer/Wave_num")
+var main_scene
 
 #var tower_range = 350
 
@@ -37,16 +38,16 @@ func set_tower_preview(build_type, mouse_position) :
 	add_child(control,true)
 	move_child(get_node('tower_preview'),0)
 	
-func update_tower_preview(new_position, coloor):
+func update_tower_preview(new_position, color):
 	get_node('tower_preview').rect_position = new_position
-	if get_node('tower_preview/dragTower').modulate != Color(coloor) :
-		get_node('tower_preview/dragTower').modulate = Color(coloor)
-		get_node('tower_preview/Sprite').modulate = Color(coloor)
+	if get_node('tower_preview/dragTower').modulate != Color(color) :
+		get_node('tower_preview/dragTower').modulate = Color(color)
+		get_node('tower_preview/Sprite').modulate = Color(color)
 	
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	main_scene = get_parent()
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -59,13 +60,13 @@ func _process(delta):
 
 #setar botao como process para que ele nao pause a arvore toda
 func _on_Button_pressed():
-	#GameData.jogo_comecou = true
-	if get_parent().build_mode:
-		get_parent().cancel_build_mode()
+	
+	if main_scene.build_mode:
+		main_scene.cancel_build_mode()
 	elif get_tree().is_paused():
 		get_tree().paused = false
-	elif get_parent().onda_inimigos_atual == 0:
-		get_parent().start_first_wave()
+	elif main_scene.onda_inimigos_atual == 0:
+		main_scene.start_first_wave()
 	else :
 		get_tree().paused = true
 	pass # Replace with function body.
@@ -73,16 +74,16 @@ func _on_Button_pressed():
 # Engine é uma variavel global propria do godot
 func _on_speed_pressed():
 
-	if get_parent().build_mode:
-		get_parent().cancel_build_mode()
+	if main_scene.build_mode:
+		main_scene.cancel_build_mode()
 	elif Engine.get_time_scale() == 2.0:
 		Engine.set_time_scale(1.0)
 	else:
 		Engine.set_time_scale(2.0)
 	
 func _on_speed4_pressed():
-	if get_parent().build_mode:
-		get_parent().cancel_build_mode()
+	if main_scene.build_mode:
+		main_scene.cancel_build_mode()
 	elif Engine.get_time_scale() == 4.0:
 		Engine.set_time_scale(1.0)
 	else:
@@ -104,9 +105,12 @@ func update_health_bar(base_health):
 	else                                         : 
 		hp_bar.set_tint_progress("434c44")
 
+func update_wave_num(x):
+	ui_wave_num.text = str(x)
+	
 
 func _on_VOLTAR_MENU_pressed():
-	print('voltar')
+
 	get_tree().change_scene("res://Elements/GerenciarCena.tscn")
 	
 

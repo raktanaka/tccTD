@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Elements/Map/Mapa.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/towerDefense_tile065.png" type="Texture" id=2]
@@ -8,28 +8,33 @@
 [ext_resource path="res://Elements/MainScene.gd" type="Script" id=6]
 [ext_resource path="res://Elements/UI.gd" type="Script" id=7]
 [ext_resource path="res://Assets/Pausebotthon.png" type="Texture" id=8]
-[ext_resource path="res://Assets/foward4.png" type="Texture" id=9]
-[ext_resource path="res://Assets/play_botton.png" type="Texture" id=10]
+[ext_resource path="res://Assets/forward4_on.png" type="Texture" id=9]
+[ext_resource path="res://Assets/play_button_off.png" type="Texture" id=10]
 [ext_resource path="res://Assets/UI/HPbar.jpg" type="Texture" id=11]
 [ext_resource path="res://Assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://Elements/playpause.gd" type="Script" id=13]
 [ext_resource path="res://Assets/UI/exitRight.png" type="Texture" id=14]
+[ext_resource path="res://Assets/forward4_off.png" type="Texture" id=15]
+[ext_resource path="res://Assets/forward_off.png" type="Texture" id=16]
+[ext_resource path="res://Assets/forward.png" type="Texture" id=17]
 
-[sub_resource type="StreamTexture" id=1]
-flags = 4
-load_path = "res://.import/foward.png-f6c3c5c892f59746bcc36cccc0f78a81.stex"
+[sub_resource type="ButtonGroup" id=4]
+resource_name = "Speed"
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="ButtonGroup" id=5]
+resource_name = "Speed"
+
+[sub_resource type="DynamicFont" id=1]
 size = 40
 use_filter = true
 font_data = ExtResource( 12 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 25
 use_filter = true
 font_data = ExtResource( 12 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 size = 40
 use_filter = true
 font_data = ExtResource( 12 )
@@ -136,7 +141,9 @@ margin_top = 530.0
 margin_right = 986.0
 margin_bottom = 580.0
 toggle_mode = true
-texture_normal = SubResource( 1 )
+group = SubResource( 4 )
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 17 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -149,7 +156,9 @@ margin_top = 530.0
 margin_right = 1066.0
 margin_bottom = 580.0
 toggle_mode = true
-texture_normal = ExtResource( 9 )
+group = SubResource( 5 )
+texture_normal = ExtResource( 15 )
+texture_pressed = ExtResource( 9 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -182,7 +191,7 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "$$:"
 align = 1
 valign = 1
@@ -197,7 +206,7 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 2
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "9999"
 align = 2
 valign = 1
@@ -205,30 +214,48 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VOLTAR_MENU" type="TextureButton" parent="UI/Control/infobar/HBoxContainer"]
+[node name="ROUND" type="Label" parent="UI/Control/infobar/HBoxContainer"]
 margin_left = 182.0
-margin_right = 252.0
-margin_bottom = 55.0
-rect_min_size = Vector2( 70, 0 )
-texture_normal = ExtResource( 14 )
-expand = true
+margin_right = 333.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 1 )
+text = "WAVE:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Wave_num" type="Label" parent="UI/Control/infobar/HBoxContainer"]
+margin_left = 337.0
+margin_right = 337.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 2
+custom_fonts/font = SubResource( 2 )
+align = 2
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HP" type="Label" parent="UI/Control/infobar/HBoxContainer"]
-margin_left = 539.0
-margin_right = 615.0
+margin_left = 465.0
+margin_right = 541.0
 margin_bottom = 55.0
 size_flags_horizontal = 10
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "HP:"
 
 [node name="Barradevida" type="TextureProgress" parent="UI/Control/infobar/HBoxContainer"]
-margin_left = 619.0
+margin_left = 545.0
 margin_top = 12.0
-margin_right = 1019.0
+margin_right = 945.0
 margin_bottom = 42.0
 rect_min_size = Vector2( 400, 30 )
 size_flags_horizontal = 4
@@ -245,6 +272,17 @@ __meta__ = {
 }
 
 [node name="Tween" type="Tween" parent="UI/Control/infobar/HBoxContainer/Barradevida"]
+
+[node name="VOLTAR_MENU" type="TextureButton" parent="UI/Control/infobar/HBoxContainer"]
+margin_left = 949.0
+margin_right = 1019.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 70, 0 )
+texture_normal = ExtResource( 14 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Control" type="Control" parent="UI/Control/infobar/HBoxContainer"]
 margin_left = 1023.0

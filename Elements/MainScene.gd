@@ -19,11 +19,11 @@ var base_health  = 100
 var total_damage = 0 # Damage logging for statistical purposes
 
 # Automatic Test Mode variables
-var test_towers
-var test_enemies
+var test_towers = 'players'
+var test_enemies = 'ai'
 var test_mode = false
-var test_rounds = 29 # 30 waves de teste
-var test_health = 9223372036854775807 # signed 64bit int
+var TEST_WAVES = 30 # 30 waves de teste
+var TEST_HEALTH = 9223372036854775807 # signed 64bit int
 
 var ENEMIES_ONE_EACH = [['EnemyRed', 1], ['EnemyGreen', 1], ['EnemyBlue', 1], ['EnemyYellow', 1], ['EnemyPurple', 1], ['EnemyOrange', 1]]
 var ENEMIES_ALL_RED = [['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1]]
@@ -48,7 +48,7 @@ func init_params(towers, enemies):
 	test_mode = true
 	test_towers = towers
 	test_enemies = enemies
-	base_health = test_health
+	base_health = TEST_HEALTH
 
 #######################################################################
 #
@@ -148,28 +148,30 @@ func _process(_delta):
 		build_enemy = true
 		
 		if test_mode:
-			match test_enemies:
-				'AI':
-					var wave = AI.start_experiment()
-					print(wave)
-					print(base_health)
-					start_next_wave(wave)   #### DESCOBRI PQ SE DESCOMENTAR NEW GAME E QUIT PARAM DE FUNCIONAR
-				'Random':
-					var wave = random_enemies()
-					print(wave)
-					start_next_wave(wave)
-				'AllRed':
-					start_next_wave(ENEMIES_ALL_RED)
-				'AllGreen':
-					start_next_wave(ENEMIES_ALL_GREEN)
-				'AllBlue':
-					start_next_wave(ENEMIES_ALL_BLUE)
-				'AllYellow':
-					start_next_wave(ENEMIES_ALL_YELLOW)
-				'AllPurple':
-					start_next_wave(ENEMIES_ALL_PURPLE)
-				'AllOrange':
-					start_next_wave(ENEMIES_ALL_ORANGE)
+			if onda_inimigos_atual == TEST_WAVES:
+				write_data(total_damage)
+				emit_signal("game_finished", false)
+			else:
+				match test_enemies:
+					'AI':
+						var wave = AI.start_experiment()
+						start_next_wave(wave)   #### DESCOBRI PQ SE DESCOMENTAR NEW GAME E QUIT PARAM DE FUNCIONAR
+					'Random':
+						var wave = random_enemies()
+						print(wave)
+						start_next_wave(wave)
+					'AllRed':
+						start_next_wave(ENEMIES_ALL_RED)
+					'AllGreen':
+						start_next_wave(ENEMIES_ALL_GREEN)
+					'AllBlue':
+						start_next_wave(ENEMIES_ALL_BLUE)
+					'AllYellow':
+						start_next_wave(ENEMIES_ALL_YELLOW)
+					'AllPurple':
+						start_next_wave(ENEMIES_ALL_PURPLE)
+					'AllOrange':
+						start_next_wave(ENEMIES_ALL_ORANGE)
 		else:
 			var wave = AI.start_experiment()
 			print(wave)
@@ -212,7 +214,7 @@ func start_first_wave(): # roda quando da play
 			wave = ENEMIES_ALL_PURPLE
 		'AllOrange':
 			wave = ENEMIES_ALL_ORANGE
-			
+		
 	var inimigos_ainda_vivos = wave.size()
 	yield(get_tree().create_timer(0.5), "timeout")#padding
 	print('first wave')
@@ -224,13 +226,13 @@ func start_next_wave(wave): # roda quando da play e qd o player mata toda a onda
 	spawn_enemies(wave)
 
 func spawn_enemies(wave):
+	onda_inimigos_atual += 1
+	$UI.update_wave_num(onda_inimigos_atual)
 	for i in wave:
 		var new_inimigo = load('res://Elements/Enemy/' + i[0] + ".tscn").instance()
 		new_inimigo.connect("base_damage",self, 'on_base_damage')
 		map_node.get_node('Path').add_child(new_inimigo,true)
 		yield(get_tree().create_timer(i[1]), "timeout")#padding
-	
-	onda_inimigos_atual += 1
 	
 	build_enemy = false
 
@@ -239,10 +241,9 @@ func on_base_damage(damage):
 	base_health = base_health - damage
 	#print('damage...', 'hp: ', base_health)
 	if base_health <= 0:
-		write_data(total_damage)
-		emit_signal("game_finished",false)
+		emit_signal("game_finished", false)
 	else:
-		get_node("UI").update_health_bar(base_health)
+		$UI.update_health_bar(base_health)
 
 # File writing at
 #   Windows: %APPDATA%\Godot\
@@ -250,19 +251,18 @@ func on_base_damage(damage):
 #   Linux: ~/.local/share/godot/
 # Only in test mode
 func write_data(data):
-	if test_mode:
-		var path = 'user://' + test_towers + ' - ' + test_enemies + '.csv'
-		var file = File.new()
-	
-		# All this to be able to append to file
-		if file.file_exists(path):
-			file.open(path, File.READ_WRITE)
-			file.seek_end()
-			file.store_string('; ')
-		else:
-			file.open(path, File.WRITE)
-			
-		file.store_string(str(data))
-		file.close()
+
+	var path = 'user://' + test_towers + ' - ' + test_enemies + '.csv'
+	var file = File.new()
+
+	# All this to be able to append to file
+	if file.file_exists(path):
+		file.open(path, File.READ_WRITE)
+		file.seek_end()
+		file.store_string('; ')
 	else:
-		pass
+		file.open(path, File.WRITE)
+		
+	file.store_string(str(data))
+	file.close()
+
