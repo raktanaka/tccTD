@@ -11,7 +11,7 @@ var Max_time = 5
 var population = [['EnemyRed', 1], ['EnemyGreen', 1], ['EnemyBlue', 1], ['EnemyYellow', 1], ['EnemyPurple', 1], ['EnemyOrange', 1]]
 
 ## receives the results that this generation achieved
-## in this example, receives a vector [REACHED_GOAL_BIN, TIME_ALIVE]
+## in this example, receives a vector [REACHED_GOAL_BIN, HP_REMAINING]
 var population_res = [[false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0]]
 
 # organize results of population
@@ -48,16 +48,17 @@ func measure_fitness ():
 # or if they reached the destination
 # Wil: Dar "nota" para a performance do tanque, talvez ponderar
 # Média: 5 * % caminho percorrido e 5 * % HP restante
-func measure_fitness_TD (chromossome):
+func measure_fitness_TD (result):
 	var fit = 0
 	
-	if chromossome[0] == true:
-		fit = 100
+	# reached player
+	if result[0] == true:
+		fit = 5
 	else:
-		fit = -100
+		fit = 0
 		
-	fit += chromossome[1] * 100
-	return fit
+	fit += result[1] * 5
+	return fit / 10
 	
 #    In this game, we measure the fitness with the HP that the enemys hit 
 # the player
