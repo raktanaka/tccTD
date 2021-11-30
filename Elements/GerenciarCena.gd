@@ -20,10 +20,11 @@ func test_mode():
 	get_tree().change_scene("res://Elements/TestMode.tscn")
 	
 func unload_game(result):
+	Engine.set_time_scale(1.0)
 	get_node("MainScene").queue_free()
 	var test_menu = load('res://Elements/GerenciarCena.tscn').instance()
 	add_child(test_menu)
-
 	
 func quit_pressed():
 	get_tree().quit()
+	

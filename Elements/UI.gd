@@ -110,7 +110,7 @@ func update_wave_num(x):
 	
 
 func _on_VOLTAR_MENU_pressed():
-
+	Engine.set_time_scale(1.0)
 	get_tree().change_scene("res://Elements/GerenciarCena.tscn")
 	
 

@@ -1,6 +1,5 @@
 extends Node2D
 
-#
 #https://gdscript.com/solutions/signals-godot/
 
 signal game_finished(result)
@@ -27,13 +26,13 @@ var test_mode = false
 var TEST_WAVES = 30 # 30 waves de teste
 var TEST_HEALTH = 9223372036854775807 # signed 64bit int
 
-var ENEMIES_ONE_EACH = [['EnemyRed', 1], ['EnemyGreen', 1], ['EnemyBlue', 1], ['EnemyYellow', 1], ['EnemyPurple', 1], ['EnemyOrange', 1]]
-var ENEMIES_ALL_RED = [['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1]]
-var ENEMIES_ALL_GREEN = [['EnemyGreen', 1], ['EnemyGreen', 1], ['EnemyGreen', 1], ['EnemyGreen', 1], ['EnemyGreen', 1], ['EnemyGreen', 1]]
-var ENEMIES_ALL_BLUE = [['EnemyBlue', 1], ['EnemyBlue', 1], ['EnemyBlue', 1], ['EnemyBlue', 1], ['EnemyBlue', 1], ['EnemyBlue', 1]]
-var ENEMIES_ALL_YELLOW = [['EnemyYellow', 1], ['EnemyYellow', 1], ['EnemyYellow', 1], ['EnemyYellow', 1], ['EnemyYellow', 1], ['EnemyYellow', 1]]
-var ENEMIES_ALL_PURPLE = [['EnemyPurple', 1], ['EnemyPurple', 1], ['EnemyPurple', 1], ['EnemyPurple', 1], ['EnemyPurple', 1], ['EnemyPurple', 1]]
-var ENEMIES_ALL_ORANGE = [['EnemyOrange', 1], ['EnemyOrange', 1], ['EnemyOrange', 1], ['EnemyOrange', 1], ['EnemyOrange', 1], ['EnemyOrange', 1]]
+var ENEMIES_ONE_EACH = [['EnemyRed', 0], ['EnemyGreen', 0], ['EnemyBlue', 0], ['EnemyYellow', 0], ['EnemyPurple', 0], ['EnemyOrange', 0], ['EnemyRed', 1], ['EnemyGreen', 1], ['EnemyBlue', 1], ['EnemyYellow', 1], ['EnemyPurple', 1], ['EnemyOrange', 1]]
+var ENEMIES_ALL_RED = [['EnemyRed', 0], ['EnemyRed', 0], ['EnemyRed', 0], ['EnemyRed', 0], ['EnemyRed', 0], ['EnemyRed', 0], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1], ['EnemyRed', 1]]
+var ENEMIES_ALL_GREEN = [['EnemyGreen', 0], ['EnemyGreen', 0], ['EnemyGreen', 0], ['EnemyGreen', 0], ['EnemyGreen', 0], ['EnemyGreen', 0], ['EnemyGreen', 1], ['EnemyGreen', 1], ['EnemyGreen', 1], ['EnemyGreen', 1], ['EnemyGreen', 1], ['EnemyGreen', 1]]
+var ENEMIES_ALL_BLUE = [['EnemyBlue', 0], ['EnemyBlue', 0], ['EnemyBlue', 0], ['EnemyBlue', 0], ['EnemyBlue', 0], ['EnemyBlue', 0], ['EnemyBlue', 1], ['EnemyBlue', 1], ['EnemyBlue', 1], ['EnemyBlue', 1], ['EnemyBlue', 1], ['EnemyBlue', 1]]
+var ENEMIES_ALL_YELLOW = [['EnemyYellow', 0], ['EnemyYellow', 0], ['EnemyYellow', 0], ['EnemyYellow', 0], ['EnemyYellow', 0], ['EnemyYellow', 0], ['EnemyYellow', 1], ['EnemyYellow', 1], ['EnemyYellow', 1], ['EnemyYellow', 1], ['EnemyYellow', 1], ['EnemyYellow', 1]]
+var ENEMIES_ALL_PURPLE = [['EnemyPurple', 0], ['EnemyPurple', 0], ['EnemyPurple', 0], ['EnemyPurple', 0], ['EnemyPurple', 0], ['EnemyPurple', 0], ['EnemyPurple', 1], ['EnemyPurple', 1], ['EnemyPurple', 1], ['EnemyPurple', 1], ['EnemyPurple', 1], ['EnemyPurple', 1]]
+var ENEMIES_ALL_ORANGE = [['EnemyOrange', 0], ['EnemyOrange', 0], ['EnemyOrange', 0], ['EnemyOrange', 0], ['EnemyOrange', 0], ['EnemyOrange', 0], ['EnemyOrange', 1], ['EnemyOrange', 1], ['EnemyOrange', 1], ['EnemyOrange', 1], ['EnemyOrange', 1], ['EnemyOrange', 1]]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -92,7 +91,8 @@ func cancel_build_mode():
 	get_node("UI/tower_preview").free() # delete imediatamente
 	
 func verify_and_build():
-	
+	print('build location')
+	print(build_location)
 	var new_tower
 	if build_valid:
 		new_tower = load("res://Elements/Tower/" + build_type + ".tscn").instance()
@@ -115,19 +115,22 @@ func _unhandled_input(event):
 
 func test_mode_build_towers():
 	
-	# Tested at locations (256, 448) and (640, 384)
+	# Tested at locations
+	# TOP (400, 144), (1056, 128)
+	# BOT (272, 528), (720, 432)
+
 	var tower_locations = PoolVector2Array()
-	tower_locations = [Vector2(256, 448), Vector2(640, 384)]
+	tower_locations = [Vector2(400, 144), Vector2(1056, 128), Vector2(272, 528), Vector2(720, 432)]
 	var tower_types = []
 	match test_towers:
 		'AllGreen':
-			tower_types = ['TowerGreen', 'TowerGreen']
+			tower_types = ['TowerGreen', 'TowerGreen', 'TowerGreen', 'TowerGreen']
 		'AllRed':
-			tower_types = ['TowerRed', 'TowerRed']
+			tower_types = ['TowerRed', 'TowerRed', 'TowerRed', 'TowerRed']
 		'GreenRed':
-			tower_types = ['TowerGreen', 'TowerRed']
+			tower_types = ['TowerGreen', 'TowerRed', 'TowerGreen', 'TowerRed']
 		'RedGreen':
-			tower_types = ['TowerRed', 'TowerGreen']
+			tower_types = ['TowerRed', 'TowerGreen', 'TowerRed', 'TowerGreen']
 	build_valid = true
 	for i in range(tower_locations.size()):
 		build_location = tower_locations[i]
@@ -237,8 +240,13 @@ func spawn_enemies(wave):
 	for i in wave:
 		var new_inimigo = load('res://Elements/Enemy/' + i[0] + ".tscn").instance()
 		new_inimigo.connect("base_damage",self, 'on_base_damage')
-		map_node.get_node('Path').add_child(new_inimigo,true)
-		yield(get_tree().create_timer(i[1]), "timeout")#padding
+		match i[1]:
+			0:
+				$Mapa/Path1.add_child(new_inimigo, true)
+			1:
+				$Mapa/Path2.add_child(new_inimigo, true)
+		#map_node.get_node('Path1').add_child(new_inimigo,true)
+		yield(get_tree().create_timer(1), "timeout")#padding
 	
 	build_enemy = false
 

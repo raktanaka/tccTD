@@ -44,7 +44,7 @@ func _ready():
 	health_bar.max_value = hp
 	health_bar.value = hp
 	health_bar.set_as_toplevel(true) #disconnect the rotation
-	id = AI.id()
+	id = AI.f_id()
 
 func on_hit(damage, t):
 	if self.type == t:

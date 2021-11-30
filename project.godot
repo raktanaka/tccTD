@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "PathFollow2D",
 "class": "INIMIGO",
 "language": "GDScript",
-"path": "res://Elements/Enemy/inimigos.gd"
+"path": "res://Elements/Enemy/Enemies.gd"
 } ]
 _global_script_class_icons={
 "INIMIGO": ""
@@ -31,7 +31,9 @@ AI="*res://Singletons/AI.gd"
 
 [display]
 
-window/size/width=1090
+window/size/width=1200
+window/size/height=640
+window/size/resizable=false
 
 [input]
 

@@ -6,27 +6,29 @@ extends Node
 
 var Enemy_Type = ['EnemyRed', 'EnemyGreen', 'EnemyBlue', 'EnemyYellow', 'EnemyPurple', 'EnemyOrange']
 
+var Enemy_Path = ['Path1', 'Path2']
+
 var Max_time = 5
 
-var population = [['EnemyRed', 1], ['EnemyGreen', 1], ['EnemyBlue', 1], ['EnemyYellow', 1], ['EnemyPurple', 1], ['EnemyOrange', 1]]
-
+#var population = [['EnemyRed', 1], ['EnemyGreen', 1], ['EnemyBlue', 1], ['EnemyYellow', 1], ['EnemyPurple', 1], ['EnemyOrange', 1]]
+var population = [['EnemyRed', 0], ['EnemyGreen', 0], ['EnemyBlue', 0], ['EnemyYellow', 0], ['EnemyPurple', 0], ['EnemyOrange', 0], ['EnemyRed', 1], ['EnemyGreen', 1], ['EnemyBlue', 1], ['EnemyYellow', 1], ['EnemyPurple', 1], ['EnemyOrange', 1]]
 ## receives the results that this generation achieved
 ## in this example, receives a vector [REACHED_GOAL_BIN, HP_REMAINING]
-var population_res = [[false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0]]
+var population_res = [[false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0]]
 
 # organize results of population
 var id = -1
 
 # inputs of the equation
-var n = 6
+var n = 12
 
 var num_weights = 2  # Number of the weights we are looking to optimize.
 
 # ??
-var pop_size = [6,2]
+var pop_size = [12,2]
 
 # to get random values
-var rng = RandomNumberGenerator.new ()
+var rng = RandomNumberGenerator.new()
 
 var mutation_prob = 10 #90%
 
@@ -34,7 +36,7 @@ func _ready():
 	population_res.resize (pop_size[0])
 	rng.randomize()
 	
-func id ():
+func f_id ():
 	id += 1
 	if id >= pop_size[0]:
 		id = -1
@@ -83,14 +85,17 @@ func cal_pop_fitness(pop):
 # Selecting the best individuals in the current generation as parents for produ-
 #cing the offspring of the next generation.
 func select_mating_pool(pop, fitness, num_parents):
+	print('pop')
+	print(pop)
+	print('fitness')
+	print(fitness)
+	print('num_parents')
+	print(num_parents)
 	var parents = []
 
 	for parent_num in range(num_parents):
-
 		var max_fitness_idx = fitness.find (fitness.max())
-
-		parents.append (pop [max_fitness_idx])
-
+		parents.append (pop[max_fitness_idx])
 		## make this value the smallest one 
 		fitness[max_fitness_idx] = -99999999999
 
@@ -177,11 +182,13 @@ func mutation(offspring_crossover):
 	print(offspring_crossover)
 	return offspring_crossover
 
-func start_experiment ():
-	var num_parents_mating = 4
+func start_experiment():
+	var num_parents_mating = 2 * (population.size()/3)
 	
 	print('population res')
 	print (population_res)
+	print('num_parents_mating')
+	print(num_parents_mating)
 	
 	# Measuring the fitness of each chromosome in the population.
 	var fitness = cal_pop_fitness(population_res)
