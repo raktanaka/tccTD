@@ -40,11 +40,11 @@ func set_type(t):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	id = AI.f_id()
 	time_start = OS.get_unix_time()
 	health_bar.max_value = hp
 	health_bar.value = hp
 	health_bar.set_as_toplevel(true) #disconnect the rotation
-	id = AI.f_id()
 
 func on_hit(damage, t):
 	if self.type == t:

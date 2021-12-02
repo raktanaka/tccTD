@@ -8,7 +8,7 @@ var Enemy_Type = ['EnemyRed', 'EnemyGreen', 'EnemyBlue', 'EnemyYellow', 'EnemyPu
 
 var Enemy_Path = ['Path1', 'Path2']
 
-var Max_time = 5
+var Max_time = 2
 
 #var population = [['EnemyRed', 1], ['EnemyGreen', 1], ['EnemyBlue', 1], ['EnemyYellow', 1], ['EnemyPurple', 1], ['EnemyOrange', 1]]
 var population = [['EnemyRed', 0], ['EnemyGreen', 0], ['EnemyBlue', 0], ['EnemyYellow', 0], ['EnemyPurple', 0], ['EnemyOrange', 0], ['EnemyRed', 1], ['EnemyGreen', 1], ['EnemyBlue', 1], ['EnemyYellow', 1], ['EnemyPurple', 1], ['EnemyOrange', 1]]
@@ -22,15 +22,14 @@ var id = -1
 # inputs of the equation
 var n = 12
 
-var num_weights = 2  # Number of the weights we are looking to optimize.
 
-# ??
+# index 0, size of the population, index 1, number of genes by individual
 var pop_size = [12,2]
 
 # to get random values
 var rng = RandomNumberGenerator.new()
 
-var mutation_prob = 10 #90%
+var mutation_prob = 1 #starts at 100%
 
 func _ready():
 	population_res.resize (pop_size[0])
@@ -39,7 +38,7 @@ func _ready():
 func f_id ():
 	id += 1
 	if id >= pop_size[0]:
-		id = -1
+		id = 0
 	return id
 
 # IMPORTANT TO DEFINE THIS FUNCTION FOR EACH GAME
@@ -122,9 +121,8 @@ func crossover (parents, offspring_size):
 			child.append (parents [parent1_idx][i])
 
 		# The new offspring will have its second half of its genes taken from the second parent.
-		for i in range (crossover_point):
+		for i in range (offspring_size[1] - crossover_point):
 			child.append (parents [parent2_idx][i + crossover_point])
-			##maybe  remove + 1
 
 		offspring.append (child)
 
@@ -134,7 +132,8 @@ func crossover (parents, offspring_size):
 # generate random values for the genes of the individual. You need to adapt for
 # your specific program
 func mutation_int (idx):
-	return 0
+	if idx == 1:
+		return rng.randi_range(0, 1)
 	
 func mutation_float (idx):
 	# the list of genes available
@@ -161,19 +160,24 @@ func mutation_string (idx):
 # In certain situations in nature mutations can occur and will give more
 #diversity to the population 
 func mutation(offspring_crossover):
+	#mutation chance now decreases as the number of generations increases
+	if mutation_prob >= 0:
+		mutation_prob -= 0.05
+	
 	# Mutation changes a single gene in each offspring randomly.
 	for idx in range(offspring_crossover.size ()):
-		
-
-		# The random value to be added to the gene.
-
+		# The random gene to mutate.
 		var random_index = rng.randi_range (0, offspring_crossover[idx].size() - 1)
+		var mutation_chance = rng.randf()
 		
-		if offspring_crossover[idx][random_index] is String:
+		if mutation_chance >= mutation_prob:
+			pass
+		
+		elif offspring_crossover[idx][random_index] is String:
 			offspring_crossover[idx][random_index] = mutation_string (random_index)
 
-		elif offspring_crossover[idx][random_index] is int:		
-			offspring_crossover[idx][random_index] += mutation_int (random_index)
+		elif offspring_crossover[idx][random_index] is int:
+			offspring_crossover[idx][random_index] = mutation_int (random_index)
 		
 		elif offspring_crossover[idx][random_index] is float:
 			offspring_crossover[idx][random_index] += mutation_float (random_index)
@@ -197,7 +201,7 @@ func start_experiment():
 	var parents = select_mating_pool(population, fitness, num_parents_mating)
 	
 	# Generating next generation using crossover.
-	var offspring_size = [pop_size[0] - parents.size(), num_weights]
+	var offspring_size = [pop_size[0] - parents.size(), pop_size[1]]
 	
 	var offspring_crossover = crossover (parents, offspring_size)
 
