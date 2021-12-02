@@ -237,10 +237,12 @@ func spawn_enemies(wave):
 	onda_inimigos_atual += 1
 	wave_damage = 0
 	$UI.update_wave_num(onda_inimigos_atual)
-	for i in wave:
-		var new_inimigo = load('res://Elements/Enemy/' + i[0] + ".tscn").instance()
+	print ("WAVE")
+	for i in len (wave):
+		var new_inimigo = load('res://Elements/Enemy/' + wave[i][0] + ".tscn").instance()
+		
 		new_inimigo.connect("base_damage",self, 'on_base_damage')
-		match i[1]:
+		match wave[i][1]:
 			0:
 				$Mapa/Path1.add_child(new_inimigo, true)
 			1:
