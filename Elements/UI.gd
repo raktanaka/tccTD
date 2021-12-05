@@ -84,10 +84,10 @@ func _on_speed_pressed():
 func _on_speed4_pressed():
 	if main_scene.build_mode:
 		main_scene.cancel_build_mode()
-	elif Engine.get_time_scale() == 4.0:
+	elif Engine.get_time_scale() == 8.0:
 		Engine.set_time_scale(1.0)
 	else:
-		Engine.set_time_scale(4.0)
+		Engine.set_time_scale(8.0)
 	
 	
 func update_health_bar(base_health):

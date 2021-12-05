@@ -22,7 +22,7 @@ var test_result_waves = ''
 var test_towers = 'players'
 var test_enemies = 'ai'
 var test_mode = false
-var TEST_WAVES = 5 # 30 waves de teste
+var TEST_WAVES = 30 # 30 waves de teste
 var TEST_HEALTH = 9223372036854775807 # signed 64bit int
 
 var ENEMIES_ONE_EACH = [['EnemyRed', 0], ['EnemyGreen', 0], ['EnemyBlue', 0], ['EnemyYellow', 0], ['EnemyPurple', 0], ['EnemyOrange', 0], ['EnemyRed', 1], ['EnemyGreen', 1], ['EnemyBlue', 1], ['EnemyYellow', 1], ['EnemyPurple', 1], ['EnemyOrange', 1]]
@@ -153,8 +153,9 @@ func _process(_delta):
 		
 		if test_mode:
 			if onda_inimigos_atual == TEST_WAVES:
+				# Logs the last wave damage
 				test_result_waves += str(wave_damage) + '\n'
-				write_file(test_result_waves)
+				write_file()
 				emit_signal("game_finished", false)
 			else:
 				var wave
@@ -227,7 +228,7 @@ func start_first_wave(): # roda quando da play
 	spawn_enemies(wave)
 	
 func start_next_wave(wave): # roda quando da play e qd o player mata toda a onda
-	# Data logging. The damage for the last wave is not logged here
+	# Damage logging. The damage for the last wave is not logged here
 	# Since it is written with a 1 wave delay. Added to the _process()
 	if test_mode:
 		test_result_waves += str(wave_damage) + '\n'
@@ -238,6 +239,8 @@ func spawn_enemies(wave):
 	
 	onda_inimigos_atual += 1
 	
+	# Test logging, saves wave number and the wave
+	# Damage logging happens before, whena a new wave is called
 	if test_mode:
 		test_result_waves += str(onda_inimigos_atual) + '; '
 		for each in wave:
@@ -277,7 +280,7 @@ func on_base_damage(damage):
 #   macOS: ~/Library/Application Support/Godot/
 #   Linux: ~/.local/share/godot/
 # Only in test mode
-func write_file(list_waves):
+func write_file():
 
 	var path = 'user://' + test_towers + ' - ' + test_enemies + '.txt'
 	var file = File.new()
