@@ -164,6 +164,8 @@ func _process(_delta):
 						wave = AI.start_experiment()
 					'Random':
 						wave = random_enemies()
+					'OneEach':
+						wave = ENEMIES_ONE_EACH
 					'AllRed':
 						wave = ENEMIES_ALL_RED
 					'AllGreen':
@@ -208,6 +210,8 @@ func start_first_wave(): # roda quando da play
 			wave = ENEMIES_ONE_EACH
 		'Random':
 			wave = random_enemies()
+		'OneEach':
+			wave = ENEMIES_ONE_EACH
 		'AllRed':
 			wave = ENEMIES_ALL_RED
 		'AllGreen':

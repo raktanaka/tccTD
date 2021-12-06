@@ -14,7 +14,7 @@
 [ext_resource path="res://Elements/playpause.gd" type="Script" id=13]
 [ext_resource path="res://Assets/UI/exitRight.png" type="Texture" id=14]
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
 
 #
@@ -192,27 +192,27 @@ func write_data(data):
 	file.close()
 "
 
-[sub_resource type="StreamTexture" id=1]
+[sub_resource type="StreamTexture" id=2]
 flags = 4
 load_path = "res://.import/foward.png-f6c3c5c892f59746bcc36cccc0f78a81.stex"
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 40
 use_filter = true
 font_data = ExtResource( 12 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=4]
 size = 25
 use_filter = true
 font_data = ExtResource( 12 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=5]
 size = 40
 use_filter = true
 font_data = ExtResource( 12 )
 
 [node name="MainScene" type="Node2D"]
-script = SubResource( 5 )
+script = SubResource( 1 )
 
 [node name="Mapa" parent="." instance=ExtResource( 1 )]
 position = Vector2( 2, 0 )
@@ -313,7 +313,7 @@ margin_top = 530.0
 margin_right = 986.0
 margin_bottom = 580.0
 toggle_mode = true
-texture_normal = SubResource( 1 )
+texture_normal = SubResource( 2 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -359,7 +359,7 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "$$:"
 align = 1
 valign = 1
@@ -374,7 +374,7 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 2
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "9999"
 align = 2
 valign = 1
@@ -399,7 +399,7 @@ margin_right = 615.0
 margin_bottom = 55.0
 size_flags_horizontal = 10
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "HP:"
 
 [node name="Barradevida" type="TextureProgress" parent="UI/Control/infobar/HBoxContainer"]
