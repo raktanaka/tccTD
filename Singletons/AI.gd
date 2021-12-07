@@ -29,7 +29,7 @@ var pop_size = [12,2]
 # to get random values
 var rng = RandomNumberGenerator.new()
 
-var mutation_prob = 1 #starts at 100%
+var mutation_prob = 1.0 #starts at 100%
 
 func _ready():
 	population_res.resize (pop_size[0])
@@ -69,6 +69,10 @@ func measure_fitness_TD (result):
 
 func measure_fitness_Asteroids (chromossome):
 	pass
+
+func reset (wave):
+	mutation_prob = 1.0
+	population = wave
 
 # Calculating the fitness value of each solution in the current population.
 # The fitness function calculates the sum of products between each input 
@@ -156,6 +160,7 @@ func mutation_string (idx):
 	print (gene[random_index])
 	
 	return gene[random_index]
+	
 
 # In certain situations in nature mutations can occur and will give more
 #diversity to the population 

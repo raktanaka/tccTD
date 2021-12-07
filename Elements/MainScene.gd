@@ -224,7 +224,8 @@ func start_first_wave(): # roda quando da play
 			wave = ENEMIES_ALL_PURPLE
 		'AllOrange':
 			wave = ENEMIES_ALL_ORANGE
-		
+	
+	AI.reset(wave)
 	var inimigos_ainda_vivos = wave.size()
 	yield(get_tree().create_timer(0.5), "timeout")#padding
 	print('first wave')
