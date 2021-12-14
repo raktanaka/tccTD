@@ -16,6 +16,7 @@ var base_damage
 var type
 
 var hp = 100.0
+var max_hp = 100.0
 var move_direction = 0
 
 #measure how much time the enemy survived
@@ -60,11 +61,15 @@ func on_hit(damage, t):
 		on_destroy()
 
 func on_destroy():
+	var offset = 0.0
 	if hp > 0:
-		reached_goal = true
+		offset = 1.0
+	else:
+		offset = unit_offset
+		hp = 0
 	var data = []
-	data.append(reached_goal)
-	data.append(unit_offset)
+	data.append(offset)
+	data.append(hp/max_hp)
 	AI.population_res[id] = data
 	self.queue_free()
 

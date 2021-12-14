@@ -14,7 +14,7 @@ var Max_time = 2
 var population = [['EnemyRed', 0], ['EnemyGreen', 0], ['EnemyBlue', 0], ['EnemyYellow', 0], ['EnemyPurple', 0], ['EnemyOrange', 0], ['EnemyRed', 1], ['EnemyGreen', 1], ['EnemyBlue', 1], ['EnemyYellow', 1], ['EnemyPurple', 1], ['EnemyOrange', 1]]
 ## receives the results that this generation achieved
 ## in this example, receives a vector [REACHED_GOAL_BIN, HP_REMAINING]
-var population_res = [[false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0], [false, 0]]
+var population_res = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]
 
 # organize results of population
 var id = -1
@@ -29,7 +29,7 @@ var pop_size = [12,2]
 # to get random values
 var rng = RandomNumberGenerator.new()
 
-var mutation_prob = 1.0 #starts at 100%
+var mutation_prob = 1.0 / pop_size[0] #starts at 100%
 
 func _ready():
 	population_res.resize (pop_size[0])
@@ -50,16 +50,7 @@ func measure_fitness ():
 # Wil: Dar "nota" para a performance do tanque, talvez ponderar
 # Média: 5 * % caminho percorrido e 5 * % HP restante
 func measure_fitness_TD (result):
-	var fit = 0
-	
-	# reached player
-	if result[0] == true:
-		fit = 5
-	else:
-		fit = 0
-		
-	fit += result[1] * 5
-	return fit / 10
+	return (result[0] + result[1]) / 2
 	
 #    In this game, we measure the fitness with the HP that the enemys hit 
 # the player
@@ -166,8 +157,8 @@ func mutation_string (idx):
 #diversity to the population 
 func mutation(offspring_crossover):
 	#mutation chance now decreases as the number of generations increases
-	if mutation_prob >= 0:
-		mutation_prob -= 0.05
+	#if mutation_prob >= 0:
+	#	mutation_prob -= 0.05
 	
 	# Mutation changes a single gene in each offspring randomly.
 	for idx in range(offspring_crossover.size ()):
