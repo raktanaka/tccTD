@@ -29,7 +29,7 @@ var pop_size = [12,2]
 # to get random values
 var rng = RandomNumberGenerator.new()
 
-var mutation_prob = 1.0 / pop_size[0] #starts at 100%
+var mutation_prob = 1.0 / 12 #starts at 100%
 
 func _ready():
 	population_res.resize (pop_size[0])
@@ -62,7 +62,7 @@ func measure_fitness_Asteroids (chromossome):
 	pass
 
 func reset (wave):
-	mutation_prob = 1.0
+	#mutation_prob = 1.0
 	population = wave
 
 # Calculating the fitness value of each solution in the current population.
