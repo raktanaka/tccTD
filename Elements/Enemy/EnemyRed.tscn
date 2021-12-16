@@ -8,19 +8,25 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 79, 35 )
 
-[node name="EnemyRed" type="Area2D"]
+[node name="EnemyRed" type="PathFollow2D"]
+position = Vector2( -21.8705, 545.449 )
+rotation = -0.0192435
+scale = Vector2( 1, 1 )
+
+[node name="EnemyRed" type="KinematicBody2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyRed"]
 shape = SubResource( 1 )
 
-[node name="enemy_red" type="Sprite" parent="."]
+[node name="enemy_red" type="Sprite" parent="EnemyRed"]
 texture = ExtResource( 4 )
 
-[node name="enemy_turret_red" type="Sprite" parent="."]
+[node name="enemy_turret_red" type="Sprite" parent="EnemyRed"]
 texture = ExtResource( 2 )
 
-[node name="enemy_shot_red" type="Sprite" parent="."]
+[node name="enemy_shot_red" type="Sprite" parent="EnemyRed"]
 position = Vector2( 69, -4 )
 rotation = 1.5708
 scale = Vector2( 0.3, 0.3 )

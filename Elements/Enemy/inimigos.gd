@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var speed = 0.75
+var speed = 1.5
 var move_direction = 0
 onready var path_follow = get_parent()
 # Declare member variables here. Examples:
@@ -18,7 +18,8 @@ func _process(delta):
 	pass
 
 func _physics_process(delta):
-	MovementLoop(delta)
+	#if GameData.jogo_comecou:
+		MovementLoop(delta)
 
 func MovementLoop(delta):
 	var pos_ini = path_follow.get_global_position()

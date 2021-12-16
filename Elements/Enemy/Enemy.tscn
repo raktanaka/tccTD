@@ -1,17 +1,15 @@
-[gd_scene load_steps=4 format=2]
-
-[ext_resource path="res://Elements/Enemy/EnemyGreen.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Elements/Path.tscn" type="PackedScene" id=2]
+[gd_scene load_steps=2 format=2]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, -17.2551, 544.352, 0, 0, 0, 0, 63.3799, 544.037, -26.0678, 0.420448, 26.0678, -0.420448, 133.178, 544.389, 0, 0, 0, 0, 160.109, 514.466, -0.529732, 18.5406, 0.529732, -18.5406, 160.266, 440.288, 0, 0, 0, 0, 183.176, 415.565, -19.3406, 0.420448, 19.3406, -0.420448, 200.269, 415.405, 0, 0, 0, 0, 224.365, 392.411, 0.420448, 17.2384, -0.420448, -17.2384, 224.029, 305.445, 0, 0, 0, 0, 241, 287.856, 0, 0, 0, 0, 454.585, 288.273 )
+"points": PoolVector2Array( 0, 0, 0, 0, -21.8705, 545.449, 0, 0, 0, 0, 148.565, 542.172, 0, 0, 0, 0, 153.338, 416.752, 0, 0, 0, 0, 210.524, 401.456, 0, 0, 0, 0, 219.494, 279.086, 0, 0, 0, 0, 425.81, 275.808, 0, 0, 0, 0, 469.541, 277.993, 0, 0, 0, 0, 477.39, 251.771, 0, 0, 0, 0, 480.753, 150.16, 0, 0, 0, 0, 643.34, 157.808, 0, 0, 0, 0, 801.441, 155.623, 0, 0, 0, 0, 802.337, 286.734, 0, 0, 0, 0, 800.095, 398.178, 0, 0, 0, 0, 921.193, 400.363, 0, 0, 0, 0, 927.921, 209.16, 0, 0, 0, 0, 929.042, 154.53, 0, 0, 0, 0, 1055.75, 161.086, 0, 0, 0, 0, 1060.06, 394.672 )
 }
 
-[node name="Path" type="Node2D"]
-
-[node name="Path2D" parent="." instance=ExtResource( 2 )]
+[node name="Path2D2" type="Path2D"]
+position = Vector2( 0.0180607, -14.889 )
+scale = Vector2( 1.00105, 1.02734 )
 curve = SubResource( 1 )
+<<<<<<< HEAD
 script = null
 
 [node name="PathFollow2D2" type="PathFollow2D" parent="Path2D"]
@@ -21,3 +19,5 @@ rotation = -0.00390657
 [node name="EnemyGreen" parent="Path2D/PathFollow2D2" instance=ExtResource( 1 )]
 position = Vector2( -0.289907, -0.0944214 )
 scale = Vector2( 0.25, 0.25 )
+=======
+>>>>>>> 97f710f4c70ab28bfda1a49262024f95747e7fe7

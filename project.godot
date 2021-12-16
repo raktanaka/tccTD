@@ -18,6 +18,10 @@ config/icon="res://icon.png"
 
 GameData="*res://Singletons/GameData.gd"
 
+[display]
+
+window/size/width=1090
+
 [input]
 
 ui_accept={
