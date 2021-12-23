@@ -45,3 +45,6 @@ O código pode ser encontrado [aqui](https://github.com/RGPRafael/godot/blob/75b
 ### v3
 
 A versão v1 usou uma taxa de mutação constante de 1/12 e pode ser encontrada aqui [here](https://github.com/RGPRafael/godot/commit/d2bad1efb8588b2d21efdcfd1738b513e0ad272e)
+
+Atribuição:
+Os assets utilizados são propriedade de [Kenney](https://www.kenney.nl/assets/tower-defense-top-down), utilizados sob [CC0](https://creativecommons.org/publicdomain/zero/1.0/) / Modificados do original.
