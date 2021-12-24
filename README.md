@@ -9,18 +9,20 @@
 
 ## Descrição
 
-Esse repositório foi criado para armazenar o jogo feito em Godot para experimentos com Algoritmos Genéticos em Criação de Waves. Mais detalhes podem ser encontrados abaixo:
+Esse repositório foi criado para armazenar um jogo feito em Godot para experimentos com Algoritmos Genéticos em Criação de Waves. Mais detalhes podem ser encontrados abaixo:
 
-- A playlist usada para a criação do jogo pode ser encontrada [aqui](https://www.youtube.com/watch?v=wFdpCGbrVXI&list=PLZ-54sd-DMAJltIzTtZ6ZhC-9hkqYXyp6).
-
-- Os tutoriais usado para embasar a criação do algoritmo genéticos podem ser encontrados [aqui](https://towardsdatascience.com/genetic-algorithm-implementation-in-python-5ab67bb124a6) (de Ahmed Gad) e [aqui](https://towardsdatascience.com/introduction-to-genetic-algorithms-including-example-code-e396e98d8bf3) (de Vijini Mallawaarachchi)
-
-- O outro jogo criado para testes (Space Shooter) pode ser encontrado [aqui](https://github.com/RGPRafael/godot/)
+- O outro jogo criado para comparação (Space Shooter) pode ser encontrado [aqui](https://github.com/RGPRafael/godot/)
 
 - O dataset com os resultados pode ser encontrado [aqui](https://github.com/raktanaka/tcc-results).
 
 
-A seguir, se encontram links para as versões das taxas de mutações utilizadas e da função fitness testadas:
+## Atribuições:
+
+- Os assets utilizados são propriedade de [Kenney](https://www.kenney.nl/assets/tower-defense-top-down), utilizados sob [CC0](https://creativecommons.org/publicdomain/zero/1.0/) / Modificados do original.
+
+- A playlist usada para a criação do jogo pode ser encontrada [aqui](https://www.youtube.com/watch?v=wFdpCGbrVXI&list=PLZ-54sd-DMAJltIzTtZ6ZhC-9hkqYXyp6).
+
+- Os tutoriais usado para embasar a criação do algoritmo genéticos podem ser encontrados [aqui](https://towardsdatascience.com/genetic-algorithm-implementation-in-python-5ab67bb124a6) (de Ahmed Gad) e [aqui](https://towardsdatascience.com/introduction-to-genetic-algorithms-including-example-code-e396e98d8bf3) (de Vijini Mallawaarachchi)
 
 ## Função fitness e taxa de mutação:
 
@@ -45,5 +47,4 @@ O código pode ser encontrado [aqui](https://github.com/RGPRafael/godot/blob/75b
 
 Taxa de mutação constante de 1/12 e pode ser encontrada aqui [here](https://github.com/RGPRafael/godot/commit/d2bad1efb8588b2d21efdcfd1738b513e0ad272e)
 
-Atribuição:
-Os assets utilizados são propriedade de [Kenney](https://www.kenney.nl/assets/tower-defense-top-down), utilizados sob [CC0](https://creativecommons.org/publicdomain/zero/1.0/) / Modificados do original.
+
